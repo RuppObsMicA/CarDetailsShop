@@ -1,0 +1,164 @@
+/*
+em - от текущего шоифта
+% - от родительской ширины
+rem - от стиля html
+vw – 1% ширины окна
+vh – 1% высоты окна
+vmin – наименьшее из (vw, vh), в IE9 обозначается vm
+vmax – наибольшее из (vw, vh)
+*/
+
+.profile-admin {
+  display: flex;
+  flex-direction: column;
+  width: 1000px;
+  height: 1000px;
+  margin: 100px auto;
+}
+
+#createNewProductForm{
+  display:flex;
+  flex-direction: column;
+}
+
+// Customer
+
+.profile-customer{
+  display: flex;
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 15px;
+
+  &__sidebar{
+    width: 18%;
+    height: 1000px;
+    background: rgb(0, 19, 68, 0.66);
+    padding-top: 10%;
+    &__link{
+      text-decoration: none;
+      & div{
+        background: #999FAD;
+        border: 1px solid rgba(0, 0, 0, 0.19);
+        box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 13px;
+        height: 5%;
+
+        font-size: 27px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #010101;
+      }
+    }
+    &__link:hover{
+      cursor: pointer;
+      opacity: 80%;
+    }
+  }
+  &__offers-history{
+    padding: 5% 0 0 5%;
+    width: 82%;
+    height: 1000px;
+
+    & h1{
+      font-size: 55px;
+    }
+
+    &__offers{
+      margin-top: 5%;
+      width: 90%;
+      display: grid;
+      grid-gap: 2rem;
+
+      grid-template-columns: 24rem 24rem 24rem;
+      grid-template-rows: 20rem 20rem;
+      &__offer{
+        background: rgba(153, 159, 173, 0.13);
+        border: 1px solid #999FAD;
+        border-radius: 13px;
+        padding: 5% 0 0 5%;
+        & h2{
+          font-size: 27px;
+        }
+        & h6{
+          margin-top: 7%;
+          font-size: 15px;
+        }
+        & h3{
+          margin-top: 30%;
+          font-size: 15px;
+        }
+      }
+    }
+
+    &__navigation{
+      margin-top: 5%;
+      width: 90%;
+      display: flex;
+      justify-content: space-between;
+      & img {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+
+.login-signup-form{
+  color: #FFFFFF;
+  margin: 5% auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  background: rgb(0, 19, 68, 0.66);
+  &__links{
+    width: 90%;
+    color: #999FAD;
+  }
+  &__navigation{
+    padding-top: 4%;
+    display: flex;
+    gap: 5%;
+  }
+  &__form{
+    margin-top: 10%;
+    width: 90%;
+  }
+  &__label{
+    margin: 3% 0;
+  }
+  &__input{
+    border-radius: 30px;
+    font-size: 25px;
+  }
+  &__submit{
+    margin: 4% auto;
+    width: 30%;
+    border-radius: 30px;
+    background: aquamarine;
+  }
+  &__link:hover{
+    cursor: pointer;
+    color: #FFFFFF;
+  }
+  &__link_active{
+    border-bottom: 1px solid red;
+  }
+  & hr{
+    width: 90%;
+  }
+  &__forgot-password{
+    cursor: pointer;
+    padding: 4% 0;
+  }
+}
+
+#authorization-form, #registration-form{
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

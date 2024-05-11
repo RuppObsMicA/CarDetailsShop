@@ -7,11 +7,11 @@ const SignIn = () => {
     const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext);
 
     const login = async (event) =>{
-        event.preventDefault();
-        let response = await fetch(URL);
-        if (response.ok){
-
-        }
+        // event.preventDefault();
+        // let response = await fetch(URL);
+        // if (response.ok){
+        //
+        // }
         localStorage.setItem('logged', 'true');
         setIsLoggedIn(true);
     }

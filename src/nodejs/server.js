@@ -1,21 +1,32 @@
-const express = require('express');
+import express from 'express';
+import multer from'multer';
+import {signUp} from "./post/AuthMethods/authMethods.js";
+import {getAllOrders} from "./get/getMethods.js";
+import {getQueryToAddNewClient, queryToGetAllOrdersFromDB} from "./post/DataBase/DatabaseQueries.js";
 
+const upload = multer({dest: "uploads/"});
 const PORT = 3030;
-
 const app = express();
 
 app.listen(PORT, (error) => {
-    error ? console.log(error): console.log("Listening port 3030");
+    error ? console.log(error): console.log(`Listening port ${PORT}`);
 })
 
-app.get("/", (req, res) => {
+// Post methods
+app.post("/signup", upload.any(), async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.send(await signUp(req.body));
+});
 
-    let response = {
-        car: "Audi",
-        year: "2015"
-    }
+app.post("/signin", upload.any(), (req, res) =>{
 
-    res.send(JSON.stringify(response));
-    console.log("Sent")
-    res.end();
 })
+
+
+//Get methods
+
+app.get("/get-all-orders", async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.send(await getAllOrders(queryToGetAllOrdersFromDB));
+    console.log("Sent orders")
+});

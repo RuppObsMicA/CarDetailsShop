@@ -9,7 +9,7 @@ const AdminProfile = () => {
         const formData = new FormData(event.target);
         // formData.set('productTitle', formData.get('productTitle'));
         // formData.set('productPrice', formData.get('productPrice'));
-        let response = await fetch(URL,{
+        let response = await fetch(URL + "/",{
             method: 'POST',
             mode: "no-cors",
             body: formData

@@ -4,10 +4,10 @@ import PrimaryInfo from "./PrimaryInfo/PrimaryInfo";
 
 const Header = () => {
     return (
-        <div className="header">
+        <header className="header">
             <PrimaryInfo></PrimaryInfo>
             <Navbar></Navbar>
-        </div>
+        </header>
     );
 };
 

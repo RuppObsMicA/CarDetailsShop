@@ -4,7 +4,7 @@ import VinBrandInput from "./VinBrandInput/VinBrandInput";
 
 const SmartSearch = () => {
     return (
-        <div className="main__smart-search">
+        <div className="smart-search">
             <VinBrandSearch/>
             <VinBrandInput/>
         </div>

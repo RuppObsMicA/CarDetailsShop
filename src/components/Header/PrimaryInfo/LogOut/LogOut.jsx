@@ -8,6 +8,7 @@ const LogOut = () => {
     const logOut = () => {
         setIsLoggedIn(false);
         localStorage.removeItem("logged");
+        // redirect to main
     }
 
     if (isLoggedIn === true){

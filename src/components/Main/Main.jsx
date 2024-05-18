@@ -5,7 +5,8 @@ import SmartSearch from "./SmartSearch/SmartSearch";
 import Partners from "./Partners/Partners";
 import Feedback from "./Feedback/Feedback";
 import Benefits from "./Benefits/Benefits";
-import Content from "./Content/Content";
+
+// Pictures
 import batteryImage from "../../images/Main/MainCatalog/battery.svg";
 import tiresAndWheelsImage from "../../images/Main/MainCatalog/tiresAndWheels.svg";
 import engineOilImage from "../../images/Main/MainCatalog/engineOil.svg";
@@ -15,26 +16,18 @@ import carBodyPartsImage from "../../images/Main/MainCatalog/carBodyParts.svg";
 
 const Main = () => {
 
-    const [isBatteryHidden, setIsBatteryHidden] = useState(true);
-    const [isTiresAndWheelsHidden, setIsTiresAndWheelsHidden] = useState(true);
-    const [isEngineOilHidden, setIsEngineOilHidden] = useState(true);
-    const [isAutoChemicalGoodsHidden, setIsAutoChemicalGoodsHidden] = useState(true);
-    const [isToolsHidden, setIsToolsHidden] = useState(true);
-    const [isBodyPartsHidden, setIsBodyPartsHidden] = useState(true);
-
     const setOfProducts = [
-        {name: "Battery", image: batteryImage, isHidden: isBatteryHidden, setIsHidden: setIsBatteryHidden},
-        {name: "Tires And Wheels", image: tiresAndWheelsImage, isHidden: isTiresAndWheelsHidden, setIsHidden: setIsTiresAndWheelsHidden},
-        {name: "Engine Oil", image: engineOilImage, isHidden: isEngineOilHidden, setIsHidden: setIsEngineOilHidden},
-        {name: "Auto chemical goods", image: autoChemicalGoodsImage, isHidden: isAutoChemicalGoodsHidden, setIsHidden: setIsAutoChemicalGoodsHidden},
-        {name: "Tools", image: toolsImage, isHidden: isToolsHidden, setIsHidden: setIsToolsHidden},
-        {name: "Body parts", image: carBodyPartsImage, isHidden: isBodyPartsHidden, setIsHidden: setIsBodyPartsHidden}
+        {name: "Battery", image: batteryImage},
+        {name: "Tires And Wheels", image: tiresAndWheelsImage},
+        {name: "Engine Oil", image: engineOilImage},
+        {name: "Auto chemical goods", image: autoChemicalGoodsImage},
+        {name: "Tools", image: toolsImage},
+        {name: "Body parts", image: carBodyPartsImage}
     ];
 
     return (
         <div className="main">
             <MainCatalog setOfProducts={setOfProducts}/>
-            <Content setOfProducts={setOfProducts}/>
             <Advertizing/>
             <SmartSearch/>
             <Partners/>

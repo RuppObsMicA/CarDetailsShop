@@ -3,7 +3,7 @@ import adImage from "../../../images/Main/advertizing.svg"
 
 const Advertizing = () => {
     return (
-        <div className="main__advertizing">
+        <div className="advertizing">
             <img src={adImage} alt="Advertizing"/>
         </div>
     );

@@ -5,7 +5,7 @@ import Sales from "./Sales/Sales";
 
 const Benefits = () => {
     return (
-        <div className="main__benefits">
+        <div className="benefits">
             <Delivery/>
             <Sales/>
             <Offers24And7/>

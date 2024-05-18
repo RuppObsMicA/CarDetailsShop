@@ -7,9 +7,9 @@ const Feedback = () => {
     const [phoneNumber, setPhoneNumber] = useState(null);
 
     return (
-        <div className="main__feedback">
+        <div className="feedback">
             <img src={feedbackImage} alt="Feedback"/>
-            <form className="main__feedback__feedback-form">
+            <form className="feedback__feedback-form">
                 <h3>Find parts for you in few minutes</h3>
                 <input type="text" placeholder="Name"/>
 
@@ -22,7 +22,7 @@ const Feedback = () => {
                     // slotChar="+375(00) 000 00 00"
                 />
 
-                <input type="text" className="main__feedback__feedback-form__phone"/>
+                <input type="text" className="feedback__feedback-form-phone"/>
                 <input type="text" placeholder="Brand"/>
                 <button type="submit">Submit</button>
             </form>

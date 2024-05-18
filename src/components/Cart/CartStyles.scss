@@ -1,0 +1,106 @@
+.cart-container{
+  display: flex;
+  padding-bottom: 5%;
+  &__title{
+    margin: 5% 0 0 10%;
+    font-size: 27px;
+  }
+  &__content{
+    width: 70%;
+    margin: 0 5%;
+  }
+  &__list-of-products{
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  &__product-in-cart{
+    display: flex;
+    padding: 2% 0;
+    width: 100%;
+    border-top: 1px solid rgb(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgb(0, 0, 0, 0.3);
+  }
+  &__checkbox{
+    padding: 0 1%;
+  }
+  &__product-info{
+    display: flex;
+    width: 50%;
+  }
+  &__image{
+    padding-right: 3%;
+  }
+  &__counter{
+    display: flex;
+    align-items: flex-start;
+    padding: 0 3%;
+  }
+  &__count{
+    padding: 5% 10%;
+    margin: 0 2%;
+
+    background: rgba(217, 217, 217, 0.17);
+    border-width: 0px 1px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.2);
+
+  }
+  &__stock{
+    width: 10%;
+    padding: 0 3%;
+  }
+  &__price-and-bonus{
+    width: 10%;
+    padding: 0 3%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  &__remove{
+    width: 7%;
+    padding: 0 3%;
+  }
+  &__submit-order{
+    padding-top: 1%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  &__general-price{
+    padding: 1% 3%;
+  }
+  &__submit{
+    width: 14%;
+  }
+  &__submit-button{
+    width: 100%;
+    padding: 6% 0;
+    background: rgba(4, 77, 255, 0.72);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    color: #FFFFFF;
+  }
+}
+
+// confirm-order-modal-window
+
+.confirm-order-modal-window-container{
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  position: fixed;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgb(0, 0, 0, 0.4);
+}
+
+.active{
+  display: flex;
+}
+
+.confirm-order-modal-window{
+  width: 20%;
+  height: 20%;
+}

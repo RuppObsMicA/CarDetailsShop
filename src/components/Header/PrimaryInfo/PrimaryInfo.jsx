@@ -6,7 +6,7 @@ import Bucket from "./Bucket/Bucket";
 import Profile from "./Profile/Profile";
 import LogOut from "./LogOut/LogOut";
 
-const PrimaryInfo = () => {
+const PrimaryInfo = ({modalActive, setModalActive}) => {
 
     return (
         <div className="header__primary-info">
@@ -14,7 +14,7 @@ const PrimaryInfo = () => {
             <Search/>
             <Contacts/>
             <Bucket/>
-            <Profile/>
+            <Profile modalActive={modalActive} setModalActive={setModalActive}/>
             <LogOut/>
         </div>
     );

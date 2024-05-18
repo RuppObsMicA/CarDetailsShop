@@ -1,14 +1,15 @@
 import Header from "./components/Header/Header";
-import Main from "./components/Main/Main";
 import Footer from "./components/Footer/Footer";
 import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./components/AppRouter/AppRouter";
 import {AuthContext} from "./components/context/auth-context";
 import {useEffect, useState} from "react";
+import SignUpSignInModalWindow from "./components/Profiles/SignUp-signIn-modal-window/SignUp-signIn-modal-window";
 
 function App() {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [modalActive, setModalActive] = useState(false);
 
     useEffect(() => {
         if (localStorage.getItem("logged"))
@@ -23,9 +24,10 @@ function App() {
             }}>
             <div className="container">
                 <BrowserRouter>
-                    <Header/>
+                    <Header modalActive={modalActive} setModalActive={setModalActive}/>
                     <AppRouter/>
                     <Footer/>
+                    <SignUpSignInModalWindow modalActive={modalActive} setModalActive={setModalActive}/>
                 </BrowserRouter>
             </div>
         </AuthContext.Provider>

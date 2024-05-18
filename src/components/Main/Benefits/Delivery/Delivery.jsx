@@ -3,7 +3,7 @@ import deliveryImage from '../../../../images/Main/Benefits/delivery.svg'
 
 const Delivery = () => {
     return (
-        <div className="main__benefits__delivery">
+        <div className="benefits__delivery">
             <img src={deliveryImage} alt="Delivery"/>
             <div>Quick delivery</div>
         </div>

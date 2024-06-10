@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+
 import MainCatalog from "./MainCatalog/MainCatalog";
 import Advertizing from "./Advertizing/Advertizing";
 import SmartSearch from "./SmartSearch/SmartSearch";
@@ -14,15 +15,19 @@ import autoChemicalGoodsImage from "../../images/Main/MainCatalog/autoChemicalGo
 import toolsImage from "../../images/Main/MainCatalog/tools.svg";
 import carBodyPartsImage from "../../images/Main/MainCatalog/carBodyParts.svg";
 
+// Styles
+import "./MainStyles.scss"
+
+
 const Main = () => {
 
     const setOfProducts = [
-        {name: "Battery", image: batteryImage},
-        {name: "Tires And Wheels", image: tiresAndWheelsImage},
-        {name: "Engine Oil", image: engineOilImage},
-        {name: "Auto chemical goods", image: autoChemicalGoodsImage},
-        {name: "Tools", image: toolsImage},
-        {name: "Body parts", image: carBodyPartsImage}
+        {name: "Battery", image: batteryImage, dataBaseTable: "batteries"},
+        {name: "Tires And Wheels", image: tiresAndWheelsImage, dataBaseTable: "tires_and_wheels"},
+        {name: "Engine Oil", image: engineOilImage, dataBaseTable: "engine_oil"},
+        {name: "Auto chemical goods", image: autoChemicalGoodsImage, dataBaseTable: "auto_chemical_goods"},
+        {name: "Tools", image: toolsImage, dataBaseTable: "tools"},
+        {name: "Body parts", image: carBodyPartsImage, dataBaseTable: "body_parts"}
     ];
 
     return (

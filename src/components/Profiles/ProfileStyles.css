@@ -1,0 +1,102 @@
+@charset "UTF-8";
+/*
+em - от текущего шоифта
+% - от родительской ширины
+rem - от стиля html
+vw – 1% ширины окна
+vh – 1% высоты окна
+vmin – наименьшее из (vw, vh), в IE9 обозначается vm
+vmax – наибольшее из (vw, vh)
+*/
+.profile-admin {
+  margin-top: 1%;
+  display: flex;
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 400;
+  line-height: 15px;
+}
+
+#createNewProductForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-customer {
+  margin-top: 1%;
+  display: flex;
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 400;
+  line-height: 15px;
+}
+.profile-customer__orders-history {
+  padding: 5% 0 0 5%;
+  width: 82%;
+  height: 1000px;
+}
+.profile-customer__orders-history h1 {
+  font-size: 55px;
+}
+.profile-customer__orders-history__orders {
+  margin-top: 5%;
+  width: 90%;
+  display: grid;
+  grid-gap: 2rem;
+  grid-template-columns: 24rem 24rem 24rem;
+  grid-template-rows: 20rem 20rem;
+}
+.profile-customer__orders-history__orders__order {
+  background: rgba(153, 159, 173, 0.13);
+  border: 1px solid #999FAD;
+  border-radius: 13px;
+  padding: 5% 0 0 5%;
+}
+.profile-customer__orders-history__orders__order h2 {
+  font-size: 27px;
+}
+.profile-customer__orders-history__orders__order h6 {
+  margin-top: 7%;
+  font-size: 15px;
+}
+.profile-customer__orders-history__orders__order h3 {
+  margin-top: 30%;
+  font-size: 15px;
+}
+.profile-customer__orders-history__navigation {
+  margin-top: 5%;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+}
+.profile-customer__orders-history__navigation img {
+  cursor: pointer;
+}
+
+.sidebar {
+  width: 20%;
+  height: 1000px;
+  background: rgba(0, 19, 68, 0.66);
+  padding-top: 10%;
+}
+.sidebar__link {
+  text-decoration: none;
+}
+.sidebar__link:hover {
+  cursor: pointer;
+  opacity: 80%;
+}
+.sidebar__title {
+  background: #999FAD;
+  border: 1px solid rgba(0, 0, 0, 0.19);
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 13px;
+  height: 5%;
+  font-size: 27px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #010101;
+}
+
+/*# sourceMappingURL=ProfileStyles.css.map */

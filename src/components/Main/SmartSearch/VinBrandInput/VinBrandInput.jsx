@@ -2,8 +2,8 @@ import React from 'react';
 
 const VinBrandInput = () => {
     return (
-        <div className="smart-search__vin-brand-input">
-            <input type="text"/>
+        <div className="smart-search__input-wrapper">
+            <input type="text" className="smart-search__input"/>
         </div>
     );
 };

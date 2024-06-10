@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import Sidebar from "../Profiles/SideBar/Sidebar";
-import "./CartStyles.scss"
 import ProductInCart from "./ProductInCart/ProductInCart";
 import Checkout from "./Checkout/Checkout";
 import ModalWindowConfirmOrder from "./ModalWindowConfirmOrder/ModalWindowConfirmOrder";
+
+// Styles
+import "./CartStyles.scss"
 
 const Cart = () => {
 

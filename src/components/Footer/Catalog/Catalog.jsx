@@ -2,7 +2,7 @@ import React from 'react';
 
 const Catalog = () => {
     return (
-        <div className="footer__catalog">
+        <div className="footer-catalog">
             Каталог <br/>
             Аккумуляторы <br/>
             Шины и диски <br/>

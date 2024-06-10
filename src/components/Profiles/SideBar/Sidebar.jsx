@@ -1,34 +1,35 @@
 import React from 'react';
 import {Link} from "react-router-dom";
+import {getRole} from "../../JSMethods/JSMethods";
 
 const Sidebar = () => {
 
     const setOfCustomerLinks =
     [{
-        title: "My offers",
-        path: "/customer_offers"
+        title: "My orders",
+        path: `/${getRole()}_profile/orders`
     }, {
         title: "Cart",
-        path: "/cart"
+        path: `/${getRole()}_profile/cart`
     }, {
         title: "Favourite",
-        path: "/customer_favourite"
+        path: `/${getRole()}_profile/favourite`
     }, {
         title: "Personal data",
-        path: "/customer_personal_data"
+        path: `/${getRole()}_profile/personal_data`
     }, {
         title: "Bonuses",
-        path: "/customer_bonuses"
+        path: `/${getRole()}_profile/bonuses`
     }]
 
     const customerLinks = setOfCustomerLinks.map((link) => {
-        return <Link to={link.path} className="profile-customer__sidebar__link">
-                    <div>{link.title}</div>
+        return <Link to={link.path} className="sidebar__link" key={link.title}>
+                    <div className="sidebar__title">{link.title}</div>
                 </Link>
     })
 
     return (
-        <aside className="profile-customer__sidebar">
+        <aside className="sidebar">
             {customerLinks}
         </aside>
 

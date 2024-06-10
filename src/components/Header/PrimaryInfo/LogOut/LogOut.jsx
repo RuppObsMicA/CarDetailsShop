@@ -8,13 +8,14 @@ const LogOut = () => {
     const logOut = () => {
         setIsLoggedIn(false);
         localStorage.removeItem("logged");
+        localStorage.removeItem("role");
         // redirect to main
     }
 
     if (isLoggedIn === true){
         return (
-            <div className="header__logout-image" onClick={logOut}>
-                <img src={logOutImage} alt="Logout" />
+            <div className="header__logout" onClick={logOut}>
+                <img src={logOutImage} alt="Logout" className="header__logout-image"/>
             </div>
         );
     }

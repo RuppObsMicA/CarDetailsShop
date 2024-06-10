@@ -1,24 +1,42 @@
-const express = require('express');
-const multer = require('multer');
-const upload = multer({dest: "uploads/"});
-const mysql = require('mysql');
+import {closeConnection, setConnection} from "../DataBase/DataBaseConnection.js";
+import {getQueryToAddNewClient, getQueryToAddNewProduct} from "../DataBase/DatabaseQueries.js";
+import jwt from "jsonwebtoken";
+import {privateKeyAndTokens} from "../SecretData/PrivateKeysAndTokens/PrivateKeyAndTokens.js";
+import {sendImageToDropBox} from "../DropBoxMethods/DropBoxMethods.js";
 
+export async function sendNewProductToDB(product, productImageURL){
+    console.log(product)
+    console.log(productImageURL)
 
-const app = express();
+    const connection = setConnection();
 
-app.post("/", upload.any(), (req, res) => {
+    let result = new Promise((resolve, reject) => {
+        connection.query(getQueryToAddNewProduct(product, productImageURL), function (err) {
+            if (err) {
+                console.log("Failed to add new product")
+                console.log(err)
+                reject([ "Failed to add the product"])
+            } else {
+                console.log("New product was added");
+                resolve( [ "New product was added"]);
+            }
+        });
+        closeConnection(connection);
+    })
 
-    const data = req.body;
+    return await result;
+}
 
-    let response = {
-        car: "Audi",
-        year: "2015"
+export async function createNewProduct(productImage, productType, product){
+    const result = await sendImageToDropBox(productImage, productType, product);
+    if (typeof result === "string") {
+        return await sendNewProductToDB(product, result);
+    } else {
+        // console.log(result)
+        console.log("fail")
+        return ["Failed to load the product"];
     }
-    console.log(data.productTitle);
+}
 
-    console.log("Sent")
-    res.end();
 
-    console.log("Got it...")
-})
 

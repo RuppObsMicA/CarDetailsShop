@@ -3,11 +3,14 @@ const SellElement = ({product, renderProduct}) => {
 
     const {image, name} = product;
 
+    // получить роутсы и развернуть новые роутсы в старые
+
+
     return (
-        <div className="catalog__element" onClick={() => renderProduct(product)}>
+        <li className="catalog__element" onClick={renderProduct}>
             <img src={image} alt={name} className="catalog__image"/>
             <div className="catalog__text">{name}</div>
-        </div>
+        </li>
     );
 };
 

@@ -1,43 +1,25 @@
-import React, {useRef} from 'react';
+import React from 'react';
 
-const SignInSignUpHeader = ({setIsSignIn}) => {
+const SignInSignUpHeader = ({isSignIn, setIsSignIn}) => {
 
-    const signInRef = useRef();
-    const signUpRef = useRef();
-
-
-    const signIn = () =>{
-        console.log(signInRef.current);
-        if (!signInRef.current.classList.contains("signin-signup-form__link_active")){
-            signInRef.current.classList.add("signin-signup-form__link_active");
-            signInRef.current.classList.remove("signin-signup-form__link_inactive");
-            signUpRef.current.classList.add("signin-signup-form__link_inactive");
-            signUpRef.current.classList.remove("signin-signup-form__link_active");
-            setIsSignIn(true);
-        }
-    }
-
-    const signUp = () =>{
-        console.log(signUpRef.current);
-        if (!signUpRef.current.classList.contains("signin-signup-form__link_active")){
-            signUpRef.current.classList.add("signin-signup-form__link_active");
-            signUpRef.current.classList.remove("signin-signup-form__link_inactive");
-            signInRef.current.classList.add("signin-signup-form__link_inactive");
-            signInRef.current.classList.remove("signin-signup-form__link_active");
-            setIsSignIn(false);
-        }
+    const handleClick = (typeOfChosenWindow) => {
+       typeOfChosenWindow === "signIn" ? setIsSignIn(true) :  setIsSignIn(false);
     }
 
     return (
         <div className="signin-signup-form__links">
             <ul className="signin-signup-form__navigation">
-                <li className="signin-signup-form__link signin-signup-form__signin-link signin-signup-form__link_active"
-                    ref={signInRef}
-                    onClick={signIn}>Sign in
+                <li className={isSignIn
+                    ? "signin-signup-form__link signin-signup-form__signin-link signin-signup-form__link_active"
+                    : "signin-signup-form__link signin-signup-form__signin-link"
+                }
+                    onClick={() => handleClick("signIn")}>Sign in
                 </li>
-                <li className="signin-signup-form__link signin-signup-form__signup-link signin-signup-form__link_inactive"
-                    ref={signUpRef}
-                    onClick={signUp}>Sign up
+                <li className={!isSignIn
+                    ? "signin-signup-form__link signin-signup-form__signup-link signin-signup-form__link_active"
+                    : "signin-signup-form__link signin-signup-form__signup-link"
+                }
+                    onClick={() => handleClick("signUp")} >Sign up
                 </li>
             </ul>
         </div>

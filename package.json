@@ -6,6 +6,8 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "chance": "^1.1.11",
+    "dropbox": "^10.34.0",
     "formdata-polyfill": "^4.0.10",
     "imask": "^7.5.0",
     "prime-react": "^1.0.0",

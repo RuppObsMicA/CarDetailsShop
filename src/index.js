@@ -4,9 +4,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import "./styles/reset.css"
 import "./styles/App.scss"
-import "./components/Header/HeaderStyles/Header.scss"
-import "./components/Footer/FooterStyles/Footer.scss"
-import "./components/Main/MainStyles/MainStyles.scss"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

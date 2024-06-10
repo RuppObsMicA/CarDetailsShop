@@ -4,7 +4,7 @@ import Payment from "./Payment/Payment";
 
 const ScheduleAndPayment = () => {
     return (
-        <div className="footer__schedule-and-payment">
+        <div className="schedule-and-payment">
             <Schedule/>
             <Payment/>
         </div>

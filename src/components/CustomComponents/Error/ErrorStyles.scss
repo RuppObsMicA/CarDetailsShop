@@ -1,0 +1,25 @@
+.custom-error {
+  padding: 20px;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  margin: 20px 0;
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+}
+
+.close-btn {
+  margin: 3%;
+  background-color: #721c24;
+  color: #fff;
+  border: none;
+  padding: 2% 6%;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background-color: #5a1e20;
+}

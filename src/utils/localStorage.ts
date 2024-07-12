@@ -1,4 +1,7 @@
-export function getAuthToken(){
+export function getAuthToken() {
     return localStorage.getItem('token');
 }
-// just getToken
+
+export function getCart() {
+    return JSON.parse(localStorage.getItem('cart') || '');
+}

@@ -1,12 +1,11 @@
-import React, {useState} from 'react';
-import './ErrorStyles.scss'
+import React, { useState } from 'react';
+import './ErrorStyles.scss';
 
 type ErrorProps = {
-    message:string;
-}
+    message: string;
+};
 
-export const Error = ({message}:ErrorProps) => {
-
+export const Error = ({ message }: ErrorProps) => {
     const [isVisible, setIsVisible] = useState(true);
 
     const handleCloseError = () => {
@@ -20,7 +19,9 @@ export const Error = ({message}:ErrorProps) => {
     return (
         <div className="custom-error">
             <p>{message}</p>
-            <button className="close-btn" onClick={handleCloseError}>Close</button>
+            <button className="close-btn" onClick={handleCloseError}>
+                Close
+            </button>
         </div>
     );
 };

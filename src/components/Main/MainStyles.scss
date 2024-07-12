@@ -41,15 +41,12 @@
 
   }
 
-  // Content rendered after clicking links
+  // Catalog rendered after clicking links
 
   &__content {
     margin-top: 5%;
     padding-bottom: 5%;
     flex-direction: column;
-    display: none;
-  }
-  &__content-active{
     display: flex;
   }
 

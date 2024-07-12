@@ -1,10 +1,10 @@
 import React from 'react';
-import {Navbar} from "./Navbar/Navbar";
-import {PrimaryInfo} from "./PrimaryInfo/PrimaryInfo";
+
+import { Navbar } from './Navbar/Navbar';
+import { PrimaryInfo } from './PrimaryInfo/PrimaryInfo';
 
 // Styles
-import "./Header.scss"
-
+import './Header.scss';
 
 export const Header = () => {
     return (

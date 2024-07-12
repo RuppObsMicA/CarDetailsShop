@@ -1,3 +1,1 @@
-export const httpCall = () => {
-
-}
+export const httpCall = () => {};

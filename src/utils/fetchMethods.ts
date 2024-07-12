@@ -1,78 +1,150 @@
-import {getAuthToken} from "./localStorage";
-import {URL} from '../utils/constants'
-import {ResponseSignUp, SignUpInputs} from "../components/Profiles/SignUp-SignIn/SignUp/SignUpPage";
+import { getAuthToken } from './localStorage';
+import {
+    ResponseSignUp,
+    SignUpInputs,
+} from '../pages/SignUp-SignIn/SignUp/SignUp';
 import {
     ResponseSignInFailure,
     ResponseSignInSuccess,
-    SignInInputs
-} from "../components/Profiles/SignUp-SignIn/SignIn/SignInPage";
+    SignInInputs,
+} from '../pages/SignUp-SignIn/SignIn/SignIn';
+import { FetchedProduct } from '../pages/Catalog/CatalogMainContent/CatalogMainContent';
+import { CartItem } from '../store/cart-slice';
+import { fetchApi } from './fetchAPI';
+import { NewOrder } from '../pages/Cart/ConfirmOrder/ConfirmOrder';
 
-export async function fetchVerifyToken(){
-    const token = {
-        token: getAuthToken()
+type ResponseVerifyToken = {
+    user: {
+        id: number;
+        username: string;
+        fullname: string;
+        password: string;
+        registrationDate: string;
+        email: string;
+        phone: number;
+        role: string;
     };
-    const response = await fetch(URL + '/token-verify', {
+    token?: string;
+};
+
+export async function fetchVerifyToken(): Promise<ResponseVerifyToken> {
+    const token = getAuthToken();
+
+    if (!token) {
+        throw new Error('Auth token is null or undefined');
+    }
+
+    const resData = await fetchApi<{ token: string }, ResponseVerifyToken>({
+        endpoint: '/token-verify',
         method: 'POST',
+        data: { token },
         headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json'
         },
-        body: JSON.stringify(token)
-    })
-    const resData = await response.json();
-    if (resData.token){
-        localStorage.setItem('token', resData.token);
+    });
+
+    if (resData.token) {
+        localStorage.setItem('token', resData.token); // update the token if the previous one expired
     }
 
     console.log(resData);
-    return resData
+    return resData;
 }
 
-export async function fetchSignUp(userData:SignUpInputs):Promise<ResponseSignUp>{
-    console.log(userData);
-
-    try{
-        let response:Response = await fetch(`${URL}/signup`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(userData)
-        });
-
-        if (!response.ok) {
-            throw Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const resData:ResponseSignUp = await response.json();
-        return resData;
-
-    } catch (error){
-        throw Error(`Failed to sign up: ${error}`);
-    }
-
+export async function fetchSignUp(
+    userData: SignUpInputs,
+): Promise<ResponseSignUp> {
+    return fetchApi<SignUpInputs, ResponseSignUp>({
+        endpoint: '/signup',
+        method: 'POST',
+        data: userData,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
 }
 
-export async function fetchSignIn(data:SignInInputs):Promise<ResponseSignInSuccess | ResponseSignInFailure>{
-    try {
-        const response: Response = await fetch(`${URL}/signin`, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        });
+export async function fetchSignIn(
+    data: SignInInputs,
+): Promise<ResponseSignInSuccess | ResponseSignInFailure> {
+    return fetchApi<
+        SignInInputs,
+        ResponseSignInSuccess | ResponseSignInFailure
+    >({
+        endpoint: '/signin',
+        method: 'POST',
+        data,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+}
+export async function fetchChosenProductType(
+    product: string,
+): Promise<FetchedProduct[]> {
+    return fetchApi<undefined, FetchedProduct[]>({
+        endpoint: `/product?product=${product}`,
+        method: 'GET',
+    });
+}
 
-        const resData: ResponseSignInSuccess | ResponseSignInFailure = await response.json();
+export async function fetchSingleProduct(
+    productType: string,
+    productId: string,
+): Promise<FetchedProduct> {
+    return fetchApi<undefined, FetchedProduct>({
+        endpoint: `/productId?type=${productType}&id=${productId}`,
+        method: 'GET',
+    });
+}
 
-        if (response.ok) {
-            return resData as ResponseSignInSuccess;
-        } else {
-            return resData as ResponseSignInFailure;
-        }
+// Fetch Cart types and function
+type FetchUpdateCartDatabaseInputs =
+    | {
+          userId: number;
+          productId: number;
+          productType: string;
+          quantity: number;
+      }
+    | {
+          userId: number;
+          productId: number;
+      };
 
-    } catch (error) {
-        throw new Error(`Failed to sign in: ${error}`);
-    }
+type ResponseUpdateCartDatabase = {
+    message: string;
+};
+
+export async function fetchUpdateCartDatabase(
+    data: FetchUpdateCartDatabaseInputs[],
+): Promise<ResponseUpdateCartDatabase> {
+    return fetchApi<
+        FetchUpdateCartDatabaseInputs[],
+        ResponseUpdateCartDatabase
+    >({
+        endpoint: '/update-cart',
+        method: 'POST',
+        data,
+    });
+}
+
+export async function fetchCartData(userId: string): Promise<CartItem[]> {
+    return fetchApi<undefined, CartItem[]>({
+        endpoint: `/fetch-cart?user_id=${userId}`,
+        method: 'GET',
+    });
+}
+
+type ResponseConfirmOrder = {
+    message: string;
+};
+export async function fetchConfirmOrder(
+    data: NewOrder,
+): Promise<ResponseConfirmOrder> {
+    // fix the any type
+    return fetchApi<NewOrder, ResponseConfirmOrder>({
+        endpoint: '/confirm-order',
+        method: 'POST',
+        data,
+    });
 }

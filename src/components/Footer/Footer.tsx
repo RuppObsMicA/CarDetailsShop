@@ -1,16 +1,16 @@
 import React from 'react';
-import {Catalog} from "./Catalog/Catalog";
-import {ScheduleAndPayment} from "./ScheduleAndPayment/ScheduleAndPayment";
+
+import { Catalog } from './Catalog/Catalog';
+import { ScheduleAndPayment } from './ScheduleAndPayment/ScheduleAndPayment';
 
 // Styles
-import "./Footer.scss"
-
+import './Footer.scss';
 
 export const Footer = () => {
     return (
         <footer className="footer">
-            <Catalog/>
-            <ScheduleAndPayment/>
+            <Catalog />
+            <ScheduleAndPayment />
         </footer>
     );
 };

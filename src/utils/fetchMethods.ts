@@ -12,6 +12,19 @@ import { FetchedProduct } from '../pages/Catalog/CatalogMainContent/CatalogMainC
 import { CartItem } from '../store/cart-slice';
 import { fetchApi } from './fetchAPI';
 import { NewOrder } from '../pages/Cart/ConfirmOrder/ConfirmOrder';
+import { UserData } from '../pages/Profiles/GeneralPagesForAllProfiles/PersonalData';
+import {
+    FetchedOrder,
+    ResponseFetchOrderFailure,
+} from '../pages/Profiles/GeneralPagesForAllProfiles/OrdersByUser';
+import {
+    ChangePersonalDataForm,
+    ResponseChangePersonalData,
+} from '../pages/Profiles/GeneralPagesForAllProfiles/PersonalDataEdit';
+import {
+    ChangePasswordForm,
+    ResponseChangePassword,
+} from '../pages/Profiles/GeneralPagesForAllProfiles/ChangePassword';
 
 type ResponseVerifyToken = {
     user: {
@@ -141,9 +154,46 @@ type ResponseConfirmOrder = {
 export async function fetchConfirmOrder(
     data: NewOrder,
 ): Promise<ResponseConfirmOrder> {
-    // fix the any type
     return fetchApi<NewOrder, ResponseConfirmOrder>({
         endpoint: '/confirm-order',
+        method: 'POST',
+        data,
+    });
+}
+
+export async function fetchUserDataById(userId: number): Promise<UserData> {
+    return fetchApi<undefined, UserData>({
+        endpoint: `/fetch-user-data?user_id=${userId}`,
+        method: 'GET',
+    });
+}
+
+export async function fetchOrdersByUserId(
+    userId: number,
+): Promise<FetchedOrder | ResponseFetchOrderFailure> {
+    return fetchApi<undefined, FetchedOrder | ResponseFetchOrderFailure>({
+        endpoint: `/fetch-orders?user_id=${userId}`,
+        method: 'GET',
+    });
+}
+
+export async function fetchUpdatePersonalData(
+    data: ChangePersonalDataForm,
+    user_id: number,
+): Promise<ResponseChangePersonalData> {
+    return fetchApi<ChangePersonalDataForm, ResponseChangePersonalData>({
+        endpoint: `/change-personal-data?user_id=${user_id}`,
+        method: 'POST',
+        data,
+    });
+}
+
+export async function fetchUpdatePassword(
+    data: ChangePasswordForm,
+    user_id: number,
+): Promise<ResponseChangePassword> {
+    return fetchApi<ChangePasswordForm, ResponseChangePassword>({
+        endpoint: `/change-password?user_id=${user_id}`,
         method: 'POST',
         data,
     });

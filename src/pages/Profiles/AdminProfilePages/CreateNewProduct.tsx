@@ -5,9 +5,8 @@ import '../ProfileStyles.scss';
 const chance = new Chance();
 
 import { URL } from '../../../utils/constants';
-import { Sidebar } from '../SideBar/Sidebar';
 
-const setOfProductAttributesAndAttributes = [
+const setOfProductTypesAndAttributes = [
     { productType: 'batteries', productAttribute: 'power' },
     { productType: 'tires_and_wheels', productAttribute: 'size' },
     { productType: 'engine_oil', productAttribute: 'viscosity' },
@@ -21,16 +20,16 @@ type Product = {
     productAttribute: string;
 };
 
-export const AdminProfile = () => {
+export const CreateNewProduct = () => {
     const [selectedProduct, setSelectedProduct] = useState<Product>(
-        setOfProductAttributesAndAttributes[0],
+        setOfProductTypesAndAttributes[0],
     );
 
     const handleProductTypeChange = (
         event: React.ChangeEvent<HTMLSelectElement>,
     ) => {
         const newProductType: string = event.target.value;
-        const newSelectedProduct = setOfProductAttributesAndAttributes.find(
+        const newSelectedProduct = setOfProductTypesAndAttributes.find(
             (elem: Product) => elem.productType === newProductType,
         );
 
@@ -67,8 +66,6 @@ export const AdminProfile = () => {
 
     return (
         <div className="profile-admin">
-            <Sidebar />
-            {/*Can create a custom FORM, INPUT components with necessary props*/}
             <div>
                 <form id="createNewProductForm" onSubmit={sendNewProduct}>
                     <div>

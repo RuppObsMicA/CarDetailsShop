@@ -1,5 +1,6 @@
 import React from 'react';
 import { FieldErrors } from 'react-hook-form';
+
 import './InputStyles.scss';
 
 type InputProps = {
@@ -7,9 +8,11 @@ type InputProps = {
     label: string;
     name: string;
     placeholder: string;
-    register: any;
+    register: any; // fix the any type
     validation: object;
     errors: FieldErrors;
+    value?: string;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const Input = ({
@@ -20,6 +23,8 @@ export const Input = ({
     register,
     validation,
     errors,
+    value,
+    onChange,
 }: InputProps) => {
     const errorMessage = errors[name]?.message as string | undefined;
 
@@ -33,7 +38,9 @@ export const Input = ({
                 placeholder={placeholder}
                 {...register(name, validation)}
                 id={name}
+                value={value}
                 className="custom-input"
+                onChange={onChange}
             />
             {errorMessage && <p className="error">{errorMessage}</p>}
         </>

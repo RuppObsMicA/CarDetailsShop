@@ -57,11 +57,7 @@ export const ProductInCart = ({ product }: ProductInCartProps) => {
             </div>
 
             <div className="cart-container__product-info">
-                <img
-                    src={pictureURL}
-                    alt="product"
-                    className="cart-container__image"
-                />
+                <img src={pictureURL} alt="product" className="cart-container__image" />
                 <div className="cart-container__description">
                     <div>{name}</div>
                     <div>{description}</div>

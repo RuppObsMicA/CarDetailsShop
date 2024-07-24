@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
-import { fetchSingleProduct } from '../../../../../utils/fetchMethods';
+import { fetchSingleProduct } from '../../../../../utils/FetchMethods/Products/products';
 import { Loader } from '../../../../../components/CustomComponents/Loader/Loader';
 import { Error } from '../../../../../components/CustomComponents/Error/Error';
 import './ProductCard.scss';

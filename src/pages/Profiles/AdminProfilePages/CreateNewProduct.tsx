@@ -5,9 +5,8 @@ import '../ProfileStyles.scss';
 const chance = new Chance();
 
 import { URL } from '../../../utils/constants';
-import { Sidebar } from '../SideBar/Sidebar';
 
-const setOfProductAttributesAndAttributes = [
+const setOfProductTypesAndAttributes = [
     { productType: 'batteries', productAttribute: 'power' },
     { productType: 'tires_and_wheels', productAttribute: 'size' },
     { productType: 'engine_oil', productAttribute: 'viscosity' },
@@ -21,16 +20,14 @@ type Product = {
     productAttribute: string;
 };
 
-export const AdminProfile = () => {
+export const CreateNewProduct = () => {
     const [selectedProduct, setSelectedProduct] = useState<Product>(
-        setOfProductAttributesAndAttributes[0],
+        setOfProductTypesAndAttributes[0],
     );
 
-    const handleProductTypeChange = (
-        event: React.ChangeEvent<HTMLSelectElement>,
-    ) => {
+    const handleProductTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const newProductType: string = event.target.value;
-        const newSelectedProduct = setOfProductAttributesAndAttributes.find(
+        const newSelectedProduct = setOfProductTypesAndAttributes.find(
             (elem: Product) => elem.productType === newProductType,
         );
 
@@ -67,8 +64,6 @@ export const AdminProfile = () => {
 
     return (
         <div className="profile-admin">
-            <Sidebar />
-            {/*Can create a custom FORM, INPUT components with necessary props*/}
             <div>
                 <form id="createNewProductForm" onSubmit={sendNewProduct}>
                     <div>
@@ -81,9 +76,7 @@ export const AdminProfile = () => {
                         >
                             {/*can render it dynamically using map method*/}
                             <option value="batteries">Batteries</option>
-                            <option value="tires_and_wheels">
-                                Tires and Wheels
-                            </option>
+                            <option value="tires_and_wheels">Tires and Wheels</option>
                             <option value="engine_oil">Engine Oil</option>
                             <option value="auto_chemical_goods">
                                 Auto chemical goods
@@ -99,21 +92,11 @@ export const AdminProfile = () => {
                     </div>
                     <div>
                         <label htmlFor="image">Product image:</label>
-                        <input
-                            type="file"
-                            name="image"
-                            accept="image/*"
-                            required
-                        />
+                        <input type="file" name="image" accept="image/*" required />
                     </div>
                     <div>
                         <label htmlFor="price">Product price:</label>
-                        <input
-                            type="number"
-                            name="price"
-                            step="0.01"
-                            required
-                        />
+                        <input type="number" name="price" step="0.01" required />
                     </div>
                     <div>
                         <label htmlFor={selectedProduct.productAttribute}>
@@ -126,9 +109,7 @@ export const AdminProfile = () => {
                         />
                     </div>
                     <div>
-                        <label htmlFor="description">
-                            Product description:
-                        </label>
+                        <label htmlFor="description">Product description:</label>
                         <input type="text" name="description" required />
                     </div>
                     <div>

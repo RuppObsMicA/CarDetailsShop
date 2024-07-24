@@ -3,26 +3,14 @@ import { Link } from 'react-router-dom';
 
 import { useAppSelector } from '../../../store/hooks';
 import { RootState } from '../../../store/store';
+import { getRoleBasedLinks } from './SidebarRoleBasedLinks';
 
 export const Sidebar = () => {
     const role: string = useAppSelector((state: RootState) => state.auth.role);
 
-    const setOfCustomerLinks = [
-        {
-            title: 'My orders',
-            path: `/${role}_profile/orders`,
-        },
-        {
-            title: 'Cart',
-            path: `/${role}_profile/cart`,
-        },
-        {
-            title: 'Personal data',
-            path: `/${role}_profile/personal_data`,
-        },
-    ];
+    const setOfAvailableLinks = getRoleBasedLinks(role);
 
-    const customerLinks = setOfCustomerLinks.map((link) => {
+    const customerLinks = setOfAvailableLinks.map((link) => {
         return (
             <Link to={link.path} className="sidebar__link" key={link.title}>
                 <div className="sidebar__title">{link.title}</div>

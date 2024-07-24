@@ -4,8 +4,9 @@ import { useQuery } from '@tanstack/react-query';
 
 import { useAppSelector } from '../../store/hooks';
 import { SignUpSignIn } from '../../pages/SignUp-SignIn/SignUpSignIn';
-import { fetchVerifyToken } from '../../utils/fetchMethods';
+import { fetchVerifyToken } from '../../utils/FetchMethods/Authorization/authorization';
 import { Loader } from '../CustomComponents/Loader/Loader';
+import { Error } from '../CustomComponents/Error/Error';
 
 export const ProtectedRoutes = () => {
     const isAuth = useAppSelector((state) => state.auth.isAuth);
@@ -25,7 +26,7 @@ export const ProtectedRoutes = () => {
     }
 
     if (isError) {
-        return <div>Error: {error.message}</div>;
+        return <Error message={error.message} />;
     }
 
     return <Outlet />;

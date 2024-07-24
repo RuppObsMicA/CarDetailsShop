@@ -8,11 +8,12 @@ import { ProductInCart } from './ProductInCart/ProductInCart';
 import { Loader } from '../../components/CustomComponents/Loader/Loader';
 import { Error } from '../../components/CustomComponents/Error/Error';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { fetchCartData } from '../../utils/fetchMethods';
-import { cartActions, CartItem } from '../../store/cart-slice';
+import { fetchCartData } from '../../utils/FetchMethods/Cart/cart';
+import { cartActions, type CartItem } from '../../store/cart-slice';
 import { getCart } from '../../utils/localStorage';
 import { Button } from '../../components/CustomComponents/Button/Button';
 import { orderedProducts } from '../../store/orderedProducts-slice';
+import { Notification } from '../../components/CustomComponents/Notification/Notification';
 
 export const Cart = () => {
     const isAuth = useAppSelector((state) => state.auth.isAuth);
@@ -47,10 +48,6 @@ export const Cart = () => {
         0,
     );
 
-    if (isError) {
-        return <Error message={error.message} />;
-    }
-
     return (
         <div className="cart-container">
             {isAuth ? (
@@ -61,24 +58,24 @@ export const Cart = () => {
             {isPending ? (
                 <Loader />
             ) : (
-                <>
-                    <div className="cart-container__content">
-                        <h1 className="cart-container__title">Cart</h1>
-                        <div className="cart-container__list-of-products">
-                            {itemsInCart.map((item) => (
-                                <ProductInCart key={item.id} product={item} />
-                            ))}
-                        </div>
-                        <div className="cart-container__submit-order">
-                            <div className="cart-container__general-price">
-                                {totalPrice} $
-                            </div>
-                            <Link to="checkout">
-                                <Button text="Checkout" />
-                            </Link>
-                        </div>
+                <div className="cart-container__content">
+                    <h1 className="cart-container__title">Cart</h1>
+                    {!itemsInCart.length && <Notification message="No items in cart" />}
+                    {isError && <Error message={error.message} />}
+                    <div className="cart-container__list-of-products">
+                        {itemsInCart.map((item) => (
+                            <ProductInCart key={item.id} product={item} />
+                        ))}
                     </div>
-                </>
+                    <div className="cart-container__submit-order">
+                        <div className="cart-container__general-price">
+                            Total price: {totalPrice} $
+                        </div>
+                        <Link to="checkout">
+                            <Button text="Checkout" />
+                        </Link>
+                    </div>
+                </div>
             )}
         </div>
     );

@@ -7,14 +7,13 @@ import { Footer } from './components/Footer/Footer';
 import { getAuthToken } from './utils/localStorage';
 import { authActions } from './store/auth-slice';
 import { useAppDispatch } from './store/hooks';
-import { fetchVerifyToken } from './utils/fetchMethods';
+import { fetchVerifyToken } from './utils/FetchMethods/Authorization/authorization';
 import { Loader } from './components/CustomComponents/Loader/Loader';
 import { Error } from './components/CustomComponents/Error/Error';
 
 export function RootLayout() {
     const dispatch = useAppDispatch();
 
-    // we use token in LS to check if it is valid and if it is we login the user
     const token: string | null = getAuthToken();
 
     if (!token) {

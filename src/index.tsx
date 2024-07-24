@@ -19,7 +19,7 @@ root.render(
     <React.StrictMode>
         <Provider store={store}>
             <QueryClientProvider client={queryClient}>
-                <RouterProvider router={router}></RouterProvider>
+                <RouterProvider router={router} />
             </QueryClientProvider>
         </Provider>
     </React.StrictMode>,

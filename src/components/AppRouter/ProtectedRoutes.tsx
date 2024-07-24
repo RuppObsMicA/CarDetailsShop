@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { useAppSelector } from '../../store/hooks';
 import { SignUpSignIn } from '../../pages/SignUp-SignIn/SignUpSignIn';
-import { fetchVerifyToken } from '../../utils/fetchMethods';
+import { fetchVerifyToken } from '../../utils/FetchMethods/Authorization/authorization';
 import { Loader } from '../CustomComponents/Loader/Loader';
 import { Error } from '../CustomComponents/Error/Error';
 

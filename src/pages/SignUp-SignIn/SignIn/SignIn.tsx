@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 
 import { useAppDispatch } from '../../../store/hooks';
-import { fetchSignIn } from '../../../utils/fetchMethods';
+import { fetchSignIn } from '../../../utils/FetchMethods/Authorization/authorization';
 import { authActions } from '../../../store/auth-slice';
 import { Loader } from '../../../components/CustomComponents/Loader/Loader';
 import { Error } from '../../../components/CustomComponents/Error/Error';
@@ -101,9 +101,7 @@ export const SignIn = () => {
         <div className="signin-signup-form__form">
             <form onSubmit={handleSubmit(signIn)} id="authorization-form">
                 {isError && <Error message={error.message} />}
-                {notificationMessage && (
-                    <Notification message={notificationMessage} />
-                )}
+                {notificationMessage && <Notification message={notificationMessage} />}
 
                 {signInFormFields.map((field) => (
                     <Input

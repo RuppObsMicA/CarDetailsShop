@@ -1,20 +1,12 @@
 import React from 'react';
 
-import { type FetchedOrder } from '../OrdersByUser';
+import { type FetchedOrder } from './OrdersByUser';
 import { formatDate } from '../../../../utils/jsMethods';
-import orderCancelled from '../../../../assets/images/Profiles/OrderCancelled.svg';
-import orderPending from '../../../../assets/images/Profiles/OrderPending.svg';
-import orderDelivered from '../../../../assets/images/Profiles/OrderDelivered.svg';
+import { imagesForOrderStatus } from '../../../../utils/constants';
 
 type OrderProps = {
     order: FetchedOrder;
     key: number;
-};
-
-const imagesForStatus: { [key: string]: string } = {
-    pending: orderPending,
-    cancelled: orderCancelled,
-    delivered: orderDelivered,
 };
 
 export const Order = ({ order }: OrderProps) => {
@@ -32,7 +24,7 @@ export const Order = ({ order }: OrderProps) => {
             </div>
             <span>
                 {order.status}{' '}
-                <img src={imagesForStatus[order.status]} alt="StatusImage" />
+                <img src={imagesForOrderStatus[order.status]} alt="StatusImage" />
             </span>
         </div>
     );

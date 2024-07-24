@@ -5,13 +5,9 @@ import profileImage from '../../../../assets/images/Header/profile.svg';
 
 export const HeaderProfile = () => {
     return (
-        <Link to="/profile/orders" className="header__profile">
+        <Link to="/profile/my_orders" className="header__profile">
             <div>
-                <img
-                    src={profileImage}
-                    alt="profile"
-                    className="header__profile-image"
-                />
+                <img src={profileImage} alt="profile" className="header__profile-image" />
             </div>
         </Link>
     );

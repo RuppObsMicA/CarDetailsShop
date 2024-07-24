@@ -1,14 +1,21 @@
 import React from 'react';
 import './ButtonStyles.scss';
 
-type ButtonProps = {
+type ButtonProps<T = void> = {
     text: string;
     type?: 'submit' | 'button';
-    onClick?: () => void;
+    onClick?: (args?: T) => void;
 };
-export const Button = ({ text, onClick, type }: ButtonProps) => {
+
+export const Button = <T,>({ text, onClick, type }: ButtonProps<T>) => {
+    const handleClick = () => {
+        if (onClick) {
+            onClick();
+        }
+    };
+
     return (
-        <button type={type} onClick={onClick} className="custom-button">
+        <button type={type} onClick={handleClick} className="custom-button">
             {text}
         </button>
     );

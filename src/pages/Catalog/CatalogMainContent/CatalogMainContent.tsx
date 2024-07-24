@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
-import { fetchChosenProductType } from '../../../utils/fetchMethods';
+import { fetchChosenProductType } from '../../../utils/FetchMethods/Products/products';
 import { Loader } from '../../../components/CustomComponents/Loader/Loader';
 import { Error } from '../../../components/CustomComponents/Error/Error';
 import { Product } from './Product/Product';
@@ -21,6 +21,7 @@ export type FetchedProduct = {
     product_number: string;
     brands: string;
     description: string;
+    quantity?: number;
 };
 
 export const CatalogMainContent = () => {

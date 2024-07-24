@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import bcrypt from 'bcryptjs';
 
-import { fetchSignUp } from '../../../utils/fetchMethods';
+import { fetchSignUp } from '../../../utils/FetchMethods/Authorization/authorization';
 import { Error } from '../../../components/CustomComponents/Error/Error';
 import { Loader } from '../../../components/CustomComponents/Loader/Loader';
 import { Notification } from '../../../components/CustomComponents/Notification/Notification';
@@ -65,9 +65,7 @@ export const SignUp = () => {
     return (
         <div className="signin-signup-form__form">
             <form id="registration-form" onSubmit={handleSubmit(signUp)}>
-                {notificationMessage && (
-                    <Notification message={notificationMessage} />
-                )}
+                {notificationMessage && <Notification message={notificationMessage} />}
                 {isError && <Error message={error.message} />}
 
                 {signUpFormFields.map((field) => (

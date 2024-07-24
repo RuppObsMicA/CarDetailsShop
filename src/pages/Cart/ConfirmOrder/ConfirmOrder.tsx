@@ -5,8 +5,8 @@ import { useMutation } from '@tanstack/react-query';
 import { useAppSelector } from '../../../store/hooks';
 import { Button } from '../../../components/CustomComponents/Button/Button';
 import { Input } from '../../../components/CustomComponents/Input/Input';
-import { CartItem } from '../../../store/cart-slice';
-import { fetchConfirmOrder } from '../../../utils/fetchMethods';
+import { type CartItem } from '../../../store/cart-slice';
+import { fetchConfirmOrder } from '../../../utils/FetchMethods/Cart/cart';
 import { Error } from '../../../components/CustomComponents/Error/Error';
 import { Notification } from '../../../components/CustomComponents/Notification/Notification';
 import { Loader } from '../../../components/CustomComponents/Loader/Loader';
@@ -22,6 +22,7 @@ export type NewOrder = {
 type ProductsIdsAndTypes = {
     productId: number;
     productType: string;
+    quantity: number;
 };
 
 type FormData = {
@@ -54,13 +55,18 @@ export const ConfirmOrder = () => {
         (acc, product) => acc + product.price * product.quantity,
         0,
     );
-    const listOfProductsIdsAndTypes: ProductsIdsAndTypes[] =
-        productsToOrder.reduce<ProductsIdsAndTypes[]>((acc, product) => {
-            return [
-                ...acc,
-                { productId: product.id, productType: product.productType },
-            ];
-        }, []);
+    const listOfProductsIdsAndTypes: ProductsIdsAndTypes[] = productsToOrder.reduce<
+        ProductsIdsAndTypes[]
+    >((acc, product) => {
+        return [
+            ...acc,
+            {
+                productId: product.id,
+                productType: product.productType,
+                quantity: product.quantity,
+            },
+        ];
+    }, []);
     const submitOrder: SubmitHandler<FormData> = (data) => {
         const newOrder: NewOrder = {
             clientId: clientId,
@@ -97,9 +103,7 @@ export const ConfirmOrder = () => {
                     <h2>{elem.quantity}</h2>
                 </div>
             ))}
-            {notificationMessage && (
-                <Notification message={notificationMessage} />
-            )}
+            {notificationMessage && <Notification message={notificationMessage} />}
             {isError && <Error message={error.message} />}
             <form onSubmit={handleSubmit(submitOrder)}>
                 <div>

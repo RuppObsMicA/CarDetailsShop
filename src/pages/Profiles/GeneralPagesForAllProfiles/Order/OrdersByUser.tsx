@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
-import { fetchOrdersByUserId } from '../../../utils/fetchMethods';
-import { Loader } from '../../../components/CustomComponents/Loader/Loader';
-import { useAppSelector } from '../../../store/hooks';
-import { Order } from './Order/Order';
-import { Error } from '../../../components/CustomComponents/Error/Error';
-import { Notification } from '../../../components/CustomComponents/Notification/Notification';
-import { type FetchedProduct } from '../../Catalog/CatalogMainContent/CatalogMainContent';
-import arrowBackward from '../../../assets/images/Profiles/ArrowBackward.svg';
-import arrowForward from '../../../assets/images/Profiles/ArrowForward.svg';
+import { fetchOrdersByUserId } from '../../../../utils/FetchMethods/Profiles/Orders/orders';
+import { Loader } from '../../../../components/CustomComponents/Loader/Loader';
+import { useAppSelector } from '../../../../store/hooks';
+import { Order } from './Order';
+import { Error } from '../../../../components/CustomComponents/Error/Error';
+import { Notification } from '../../../../components/CustomComponents/Notification/Notification';
+import { type FetchedProduct } from '../../../Catalog/CatalogMainContent/CatalogMainContent';
+import arrowBackward from '../../../../assets/images/Profiles/ArrowBackward.svg';
+import arrowForward from '../../../../assets/images/Profiles/ArrowForward.svg';
 
 export type FetchedOrder = {
     id: number;
@@ -18,6 +18,7 @@ export type FetchedOrder = {
     address: string;
     date: Date;
     price: number;
+    phone?: number;
     products: FetchedProduct[];
     status: string;
 };
@@ -29,13 +30,11 @@ export const OrdersByUser = () => {
     const userId = useAppSelector((state) => state.auth.id);
 
     const { isPending, isError, error, data } = useQuery({
-        queryKey: ['fetchOrdersData'],
+        queryKey: ['fetchOrdersDataByUserId'],
         queryFn: () => fetchOrdersByUserId(userId),
     });
 
     useEffect(() => {
-        console.log(data);
-
         if (data && Array.isArray(data)) {
             setOrders(data);
         }
@@ -50,7 +49,7 @@ export const OrdersByUser = () => {
     return (
         <div className="profile-customer">
             <div className="profile-customer__orders-history">
-                <h1>Orders history</h1>
+                <h1>My orders</h1>
                 {isError && <Error message={error.message} />}
                 {!orders && <Notification message="You haven not made any order yet" />}
                 <div className="profile-customer__orders-history__orders">

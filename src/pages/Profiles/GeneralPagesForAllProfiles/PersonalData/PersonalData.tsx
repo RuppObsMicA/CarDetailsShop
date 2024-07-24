@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
-import { fetchUserDataById } from '../../../utils/fetchMethods';
-import { useAppSelector } from '../../../store/hooks';
-import { Loader } from '../../../components/CustomComponents/Loader/Loader';
-import { Error } from '../../../components/CustomComponents/Error/Error';
+import { fetchUserDataById } from '../../../../utils/FetchMethods/Profiles/PersonalData/personalData';
+import { useAppSelector } from '../../../../store/hooks';
+import { Loader } from '../../../../components/CustomComponents/Loader/Loader';
+import { Error } from '../../../../components/CustomComponents/Error/Error';
 import { PersonalDataEdit } from './PersonalDataEdit';
 import { PersonalDataInfo } from './PersonalDataInfo';
 
@@ -50,10 +50,7 @@ export const PersonalData = () => {
             {isError && <Error message={error.message} />}
             {isEditMode && userData && <PersonalDataEdit user={userData} />}
             {!isEditMode && userData && (
-                <PersonalDataInfo
-                    user={userData}
-                    onClick={handleEditModeChange}
-                />
+                <PersonalDataInfo user={userData} onClick={handleEditModeChange} />
             )}
         </div>
     );

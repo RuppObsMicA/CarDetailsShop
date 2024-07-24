@@ -25,9 +25,7 @@ export const CreateNewProduct = () => {
         setOfProductTypesAndAttributes[0],
     );
 
-    const handleProductTypeChange = (
-        event: React.ChangeEvent<HTMLSelectElement>,
-    ) => {
+    const handleProductTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const newProductType: string = event.target.value;
         const newSelectedProduct = setOfProductTypesAndAttributes.find(
             (elem: Product) => elem.productType === newProductType,
@@ -78,9 +76,7 @@ export const CreateNewProduct = () => {
                         >
                             {/*can render it dynamically using map method*/}
                             <option value="batteries">Batteries</option>
-                            <option value="tires_and_wheels">
-                                Tires and Wheels
-                            </option>
+                            <option value="tires_and_wheels">Tires and Wheels</option>
                             <option value="engine_oil">Engine Oil</option>
                             <option value="auto_chemical_goods">
                                 Auto chemical goods
@@ -96,21 +92,11 @@ export const CreateNewProduct = () => {
                     </div>
                     <div>
                         <label htmlFor="image">Product image:</label>
-                        <input
-                            type="file"
-                            name="image"
-                            accept="image/*"
-                            required
-                        />
+                        <input type="file" name="image" accept="image/*" required />
                     </div>
                     <div>
                         <label htmlFor="price">Product price:</label>
-                        <input
-                            type="number"
-                            name="price"
-                            step="0.01"
-                            required
-                        />
+                        <input type="number" name="price" step="0.01" required />
                     </div>
                     <div>
                         <label htmlFor={selectedProduct.productAttribute}>
@@ -123,9 +109,7 @@ export const CreateNewProduct = () => {
                         />
                     </div>
                     <div>
-                        <label htmlFor="description">
-                            Product description:
-                        </label>
+                        <label htmlFor="description">Product description:</label>
                         <input type="text" name="description" required />
                     </div>
                     <div>

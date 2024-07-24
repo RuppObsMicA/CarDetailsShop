@@ -4,7 +4,7 @@ export function getRoleBasedLinks(role: string) {
             return [
                 {
                     title: 'My orders',
-                    path: `/profile/orders`,
+                    path: `/profile/my_orders`,
                 },
                 {
                     title: 'Cart',
@@ -18,12 +18,16 @@ export function getRoleBasedLinks(role: string) {
                     title: 'Add product',
                     path: `/profile/create_new_product`,
                 },
+                {
+                    title: 'Orders',
+                    path: `/profile/worker_orders`,
+                },
             ];
         case 'customer':
             return [
                 {
                     title: 'My orders',
-                    path: `/profile/orders`,
+                    path: `/profile/my_orders`,
                 },
                 {
                     title: 'Cart',
@@ -38,7 +42,7 @@ export function getRoleBasedLinks(role: string) {
             return [
                 {
                     title: 'My orders',
-                    path: `/profile/orders`,
+                    path: `/profile/my_orders`,
                 },
                 {
                     title: 'Cart',
@@ -50,7 +54,7 @@ export function getRoleBasedLinks(role: string) {
                 },
                 {
                     title: 'Orders',
-                    path: `/profile/new_orders`,
+                    path: `/profile/worker_orders`,
                 },
             ];
         default:

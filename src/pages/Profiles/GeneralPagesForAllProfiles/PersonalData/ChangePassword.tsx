@@ -4,13 +4,13 @@ import { useMutation } from '@tanstack/react-query';
 import bcrypt from 'bcryptjs';
 import { useNavigate } from 'react-router-dom';
 
-import { Input } from '../../../components/CustomComponents/Input/Input';
-import { Button } from '../../../components/CustomComponents/Button/Button';
-import { useAppSelector } from '../../../store/hooks';
-import { fetchUpdatePassword } from '../../../utils/fetchMethods';
-import { Loader } from '../../../components/CustomComponents/Loader/Loader';
-import { Error } from '../../../components/CustomComponents/Error/Error';
-import { Notification } from '../../../components/CustomComponents/Notification/Notification';
+import { Input } from '../../../../components/CustomComponents/Input/Input';
+import { Button } from '../../../../components/CustomComponents/Button/Button';
+import { useAppSelector } from '../../../../store/hooks';
+import { fetchUpdatePassword } from '../../../../utils/FetchMethods/Profiles/PersonalData/personalData';
+import { Loader } from '../../../../components/CustomComponents/Loader/Loader';
+import { Error } from '../../../../components/CustomComponents/Error/Error';
+import { Notification } from '../../../../components/CustomComponents/Notification/Notification';
 
 function getChangePasswordFieldsSettings(watch: any) {
     return [

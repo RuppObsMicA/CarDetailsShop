@@ -1,18 +1,26 @@
 import { URL } from './constants';
+import { getAuthToken } from './localStorage';
 
-type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
+type Method = 'GET' | 'POST' | 'PATCH' | 'DELETE';
 
 type FetchOptions<TRequest> = {
     endpoint: string;
     method: Method;
     data?: TRequest;
-    headers?: HeadersInit;
+    headers?: Record<string, string>;
 };
 
 export async function fetchApi<TRequest, TResponse>(
     options: FetchOptions<TRequest>,
 ): Promise<TResponse> {
     const { endpoint, method, data, headers = {} } = options;
+
+    const token = getAuthToken();
+
+    if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+    }
+
     try {
         const config: RequestInit = {
             method,

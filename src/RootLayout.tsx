@@ -1,58 +1,24 @@
 import { Outlet } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
-import { getAuthToken } from './utils/localStorage';
-import { authActions } from './store/auth-slice';
-import { useAppDispatch } from './store/hooks';
-import { fetchVerifyToken } from './utils/FetchMethods/Authorization/authorization';
 import { Loader } from './components/CustomComponents/Loader/Loader';
 import { Error } from './components/CustomComponents/Error/Error';
+import { useVerifyToken } from './components/AppRouter/hooks';
 
 export function RootLayout() {
-    const dispatch = useAppDispatch();
-
-    const token: string | null = getAuthToken();
-
-    if (!token) {
-        return (
-            <>
-                <Header />
-                <Outlet />
-                <Footer />
-            </>
-        );
-    }
-
-    const { isPending, isError, error, data } = useQuery({
-        queryKey: ['initialAuth'],
-        queryFn: fetchVerifyToken,
-        enabled: token !== null,
-    });
+    const { isPending, isError, error } = useVerifyToken();
 
     if (isPending) {
         return <Loader />;
     }
 
-    if (data && token) {
-        dispatch(
-            authActions.login({
-                token,
-                role: data.user.role,
-                id: data.user.id,
-                fullName: data.user.fullname,
-            }),
-        );
-    }
-
     return (
         <>
             <Header />
-            {isError && <Error message={error.message} />}
+            {isError && error && <Error message={error.message} />}
             <Outlet />
-            {/*Use Outlet since Header and Footer always must be a part of the page, we only change main using the Outlet*/}
             <Footer />
         </>
     );

@@ -20,10 +20,7 @@ export const authSlice = createSlice({
     name: 'auth-slice',
     initialState,
     reducers: {
-        login(
-            state: InitialState,
-            action: PayloadAction<ResponseSignInSuccess>,
-        ) {
+        login(state: InitialState, action: PayloadAction<ResponseSignInSuccess>) {
             state.isAuth = true;
             state.role = action.payload.role;
             state.id = action.payload.id;

@@ -72,7 +72,7 @@ export const ProcessOrder = () => {
     };
 
     if (!order) {
-        return <div>No data about rhe order</div>;
+        return <div>No data about the order</div>;
     }
 
     return (

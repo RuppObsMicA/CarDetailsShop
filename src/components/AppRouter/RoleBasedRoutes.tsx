@@ -9,6 +9,26 @@ import { WorkerOrders } from '../../pages/Profiles/WorkerProfilePages/WorkerOrde
 import { ChangePassword } from '../../pages/Profiles/GeneralPagesForAllProfiles/PersonalData/ChangePassword';
 import { ProcessOrder } from '../../pages/Profiles/WorkerProfilePages/ProcessOrder';
 
+type Route = {
+    path: string;
+    element: React.ReactNode;
+};
+
+const workerRoutes: Route[] = [
+    { path: 'worker_orders', element: <WorkerOrders /> },
+    { path: 'worker_orders/:id', element: <ProcessOrder /> },
+];
+
+const adminRoutes: Route[] = [
+    { path: 'create_new_product', element: <CreateNewProduct /> },
+];
+
+const customerRoutes: Route[] = [
+    { path: 'my_orders', element: <OrdersByUser /> },
+    { path: 'personal_data', element: <PersonalData /> },
+    { path: 'personal_data/change_password', element: <ChangePassword /> },
+];
+
 export const RoleBasedRoutes = () => {
     const role = useAppSelector((state) => state.auth.role);
 
@@ -16,39 +36,34 @@ export const RoleBasedRoutes = () => {
         case 'admin':
             return (
                 <Routes>
-                    <Route path="my_orders" element={<OrdersByUser />} />
-                    <Route path="personal_data" element={<PersonalData />} />
-                    <Route path="create_new_product" element={<CreateNewProduct />} />
-                    <Route path="worker_orders" element={<WorkerOrders />} />
-                    <Route path="worker_orders/:id" element={<ProcessOrder />} />
-                    <Route
-                        path="personal_data/change_password"
-                        element={<ChangePassword />}
-                    />
+                    {customerRoutes.map(({ path, element }: Route) => (
+                        <Route key={path} path={path} element={element} />
+                    ))}
+                    {workerRoutes.map(({ path, element }: Route) => (
+                        <Route key={path} path={path} element={element} />
+                    ))}
+                    {adminRoutes.map(({ path, element }: Route) => (
+                        <Route key={path} path={path} element={element} />
+                    ))}
                 </Routes>
             );
         case 'worker':
             return (
                 <Routes>
-                    <Route path="my_orders" element={<OrdersByUser />} />
-                    <Route path="personal_data" element={<PersonalData />} />
-                    <Route path="worker_orders" element={<WorkerOrders />} />
-                    <Route path="worker_orders/:id" element={<ProcessOrder />} />
-                    <Route
-                        path="personal_data/change_password"
-                        element={<ChangePassword />}
-                    />
+                    {customerRoutes.map(({ path, element }: Route) => (
+                        <Route key={path} path={path} element={element} />
+                    ))}
+                    {workerRoutes.map(({ path, element }: Route) => (
+                        <Route key={path} path={path} element={element} />
+                    ))}
                 </Routes>
             );
         case 'customer':
             return (
                 <Routes>
-                    <Route path="my_orders" element={<OrdersByUser />} />
-                    <Route path="personal_data" element={<PersonalData />} />
-                    <Route
-                        path="personal_data/change_password"
-                        element={<ChangePassword />}
-                    />
+                    {customerRoutes.map(({ path, element }: Route) => (
+                        <Route key={path} path={path} element={element} />
+                    ))}
                 </Routes>
             );
         default:

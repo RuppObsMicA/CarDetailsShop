@@ -1,5 +1,5 @@
 import { getAuthToken } from '../../localStorage';
-import { fetchApi } from '../../fetchAPI';
+import { fetchApi } from '../../../api/fetchAPI';
 import {
     type ResponseSignUp,
     type SignUpInputs,
@@ -41,7 +41,7 @@ export async function fetchVerifyToken(): Promise<ResponseVerifyToken> {
     });
 
     if (resData.token) {
-        localStorage.setItem('token', resData.token); // update the token if the previous one expired
+        localStorage.setItem('token', resData.token);
     }
 
     console.log(resData);

@@ -2,7 +2,7 @@ import {
     type FetchedOrder,
     type ResponseFetchOrderFailure,
 } from '../../../../pages/Profiles/GeneralPagesForAllProfiles/Order/OrdersByUser';
-import { fetchApi } from '../../../fetchAPI';
+import { fetchApi } from '../../../../api/fetchAPI';
 import { type ResponseFetchOrders } from '../../../../pages/Profiles/WorkerProfilePages/WorkerOrders';
 import { type ResponseUpdateStatus } from '../../../../pages/Profiles/WorkerProfilePages/ProcessOrder';
 

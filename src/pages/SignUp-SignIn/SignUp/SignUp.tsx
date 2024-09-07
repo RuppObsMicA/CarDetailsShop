@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
-import bcrypt from 'bcryptjs';
+import React from 'react';
 
-import { fetchSignUp } from '../../../utils/FetchMethods/Authorization/authorization';
 import { Error } from '../../../components/CustomComponents/Error/Error';
 import { Loader } from '../../../components/CustomComponents/Loader/Loader';
 import { Notification } from '../../../components/CustomComponents/Notification/Notification';
 import { Input } from '../../../components/CustomComponents/Input/Input';
 import { getSignUpFieldsSettings } from './SignUpFieldsSettings';
+import { useSignUp } from '../hooks';
 
 export type SignUpInputs = {
     username: string;
@@ -25,36 +22,16 @@ export type ResponseSignUp = {
 
 export const SignUp = () => {
     const {
+        isPending,
+        isError,
+        error,
+        notificationMessage,
         register,
         handleSubmit,
         watch,
-        reset,
-        formState: { errors },
-    } = useForm<SignUpInputs>();
-    const [notificationMessage, setNotificationMessage] = useState('');
-
-    const { mutate, isPending, isError, error } = useMutation({
-        mutationFn: (data: SignUpInputs) => {
-            return fetchSignUp(data);
-        },
-    });
-
-    const signUp: SubmitHandler<SignUpInputs> = async (data: SignUpInputs) => {
-        const salt = bcrypt.genSaltSync(10); // might be in a separate place
-        data.password = bcrypt.hashSync(data.password, salt);
-
-        mutate(data, {
-            onSuccess: (responseData) => {
-                setNotificationMessage(responseData.message);
-                if (
-                    responseData.message ===
-                    'Registration finished successfully, you can sign in'
-                ) {
-                    reset();
-                }
-            },
-        });
-    };
+        errors,
+        signUp,
+    } = useSignUp();
 
     if (isPending) {
         return <Loader />;
@@ -66,7 +43,7 @@ export const SignUp = () => {
         <div className="signin-signup-form__form">
             <form id="registration-form" onSubmit={handleSubmit(signUp)}>
                 {notificationMessage && <Notification message={notificationMessage} />}
-                {isError && <Error message={error.message} />}
+                {isError && error && <Error message={error.message} />}
 
                 {signUpFormFields.map((field) => (
                     <Input

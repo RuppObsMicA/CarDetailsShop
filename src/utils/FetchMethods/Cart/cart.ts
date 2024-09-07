@@ -1,4 +1,4 @@
-import { fetchApi } from '../../fetchAPI';
+import { fetchApi } from '../../../api/fetchAPI';
 import { type CartItem } from '../../../store/cart-slice';
 import { type NewOrder } from '../../../pages/Cart/ConfirmOrder/ConfirmOrder';
 

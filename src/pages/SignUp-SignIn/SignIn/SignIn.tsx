@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
+import React from 'react';
 
-import { useAppDispatch } from '../../../store/hooks';
-import { fetchSignIn } from '../../../utils/FetchMethods/Authorization/authorization';
-import { authActions } from '../../../store/auth-slice';
 import { Loader } from '../../../components/CustomComponents/Loader/Loader';
 import { Error } from '../../../components/CustomComponents/Error/Error';
 import { Input } from '../../../components/CustomComponents/Input/Input';
 import { Notification } from '../../../components/CustomComponents/Notification/Notification';
+import { useSignIn } from '../hooks';
+import { signInFormFields } from './SignInFieldsSettings';
 
 export type ResponseSignInSuccess = {
     role: string;
@@ -26,81 +23,32 @@ export type SignInInputs = {
     password: string;
 };
 
-const isResponseSignInFailure = (
+export const isResponseSignInFailure = (
     response: ResponseSignInSuccess | ResponseSignInFailure,
 ): response is ResponseSignInFailure => {
     return 'message' in response;
 };
 
-const signInFormFields = [
-    {
-        label: 'Username',
-        name: 'username',
-        type: 'text',
-        placeholder: 'Enter Username',
-        validation: {
-            required: 'This is a required field',
-        },
-    },
-    {
-        label: 'Password',
-        name: 'password',
-        type: 'password',
-        placeholder: 'Enter password',
-        validation: {
-            required: 'This is a required field',
-        },
-    },
-];
-
 export const SignIn = () => {
-    const dispatch = useAppDispatch();
     const {
+        isPending,
+        isError,
+        error,
         register,
         handleSubmit,
-        formState: { errors },
-    } = useForm<SignInInputs>();
-    const [notificationMessage, setNotificationMessage] = useState('');
-
-    const { mutate, isPending, isError, error } = useMutation({
-        // replace with useQuery
-        mutationFn: (data: SignInInputs) => {
-            return fetchSignIn(data);
-        },
-    });
+        errors,
+        notificationMessage,
+        signIn,
+    } = useSignIn();
 
     if (isPending) {
         return <Loader />;
     }
 
-    const signIn: SubmitHandler<SignInInputs> = async (data) => {
-        mutate(data, {
-            onSuccess: (responseData) => {
-                if (responseData && !isResponseSignInFailure(responseData)) {
-                    dispatch(
-                        authActions.login({
-                            token: responseData.token,
-                            role: responseData.role,
-                            id: responseData.id,
-                            fullName: responseData.fullName,
-                        }),
-                    );
-                } else {
-                    setNotificationMessage(responseData.message);
-                }
-            },
-            onError: (error) => {
-                setNotificationMessage(
-                    'An error occurred during signIn. Please try again later.',
-                );
-            },
-        });
-    };
-
     return (
         <div className="signin-signup-form__form">
             <form onSubmit={handleSubmit(signIn)} id="authorization-form">
-                {isError && <Error message={error.message} />}
+                {isError && error && <Error message={error.message} />}
                 {notificationMessage && <Notification message={notificationMessage} />}
 
                 {signInFormFields.map((field) => (

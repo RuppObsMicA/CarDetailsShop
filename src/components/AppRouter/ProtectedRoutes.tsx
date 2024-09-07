@@ -10,13 +10,13 @@ import { useVerifyToken } from './hooks';
 export const ProtectedRoutes = () => {
     const isAuth = useAppSelector((state) => state.auth.isAuth);
 
-    const { isPending, isError, error } = useVerifyToken();
-
     if (!isAuth) {
         return <SignUpSignIn />;
     }
 
-    if (isPending) {
+    const { isLoading, isError, error } = useVerifyToken();
+
+    if (isLoading) {
         return <Loader />;
     }
 

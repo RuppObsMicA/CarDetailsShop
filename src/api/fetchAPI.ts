@@ -1,5 +1,5 @@
-import { URL } from './constants';
-import { getAuthToken } from './localStorage';
+import { URL } from '../utils/constants';
+import { getAuthToken } from '../utils/localStorage';
 
 type Method = 'GET' | 'POST' | 'PATCH' | 'DELETE';
 

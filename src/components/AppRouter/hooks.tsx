@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 import { useAppDispatch } from '../../store/hooks';
@@ -11,7 +11,7 @@ export const useVerifyToken = () => {
 
     const token: string | null = getAuthToken();
 
-    const { isPending, isError, error, data } = useQuery({
+    const { isLoading, isError, error, data } = useQuery({
         queryKey: ['initialAuth'],
         queryFn: fetchVerifyToken,
         enabled: token !== null,
@@ -28,5 +28,5 @@ export const useVerifyToken = () => {
         );
     }
 
-    return { isPending, isError, error, data };
+    return { isLoading, isError, error };
 };

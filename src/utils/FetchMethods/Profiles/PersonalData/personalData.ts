@@ -1,5 +1,5 @@
 import { type UserData } from '../../../../pages/Profiles/GeneralPagesForAllProfiles/PersonalData/PersonalData';
-import { fetchApi } from '../../../fetchAPI';
+import { fetchApi } from '../../../../api/fetchAPI';
 import {
     type ChangePersonalDataForm,
     type ResponseChangePersonalData,

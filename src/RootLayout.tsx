@@ -8,9 +8,9 @@ import { Error } from './components/CustomComponents/Error/Error';
 import { useVerifyToken } from './components/AppRouter/hooks';
 
 export function RootLayout() {
-    const { isPending, isError, error } = useVerifyToken();
+    const { isLoading, isError, error } = useVerifyToken();
 
-    if (isPending) {
+    if (isLoading) {
         return <Loader />;
     }
 

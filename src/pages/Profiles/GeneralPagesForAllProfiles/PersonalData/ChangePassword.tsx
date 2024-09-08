@@ -11,6 +11,7 @@ import { Loader } from '../../../../components/CustomComponents/Loader/Loader';
 import { Error } from '../../../../components/CustomComponents/Error/Error';
 import { Notification } from '../../../../components/CustomComponents/Notification/Notification';
 import { updatePassword } from '../../../../api/FetchMethods/Profiles/PersonalData/personalData';
+import { useUpdatePassword } from '../../hooks';
 
 function getChangePasswordFieldsSettings(watch: any) {
     return [
@@ -60,38 +61,16 @@ export type ResponseChangePassword = {
 
 export const ChangePassword = () => {
     const {
+        isPending,
+        isError,
+        error,
+        updatePasswordSubmit,
         register,
-        reset,
+        errors,
         watch,
         handleSubmit,
-        formState: { errors },
-    } = useForm<ChangePasswordForm>();
-
-    const userId = useAppSelector((state) => state.auth.id);
-    const [notificationMessage, setNotificationMessage] = useState('');
-
-    const { mutate, isPending, isError, error } = useMutation({
-        mutationFn: (data: ChangePasswordForm) => {
-            return updatePassword(data, userId);
-        },
-    });
-
-    const updatePasswordSubmit: SubmitHandler<ChangePasswordForm> = async (
-        data: ChangePasswordForm,
-    ) => {
-        const salt = bcrypt.genSaltSync(10); // might be in a separate place
-        data.password = bcrypt.hashSync(data.password, salt);
-
-        mutate(data, {
-            onSuccess: (responseData) => {
-                setNotificationMessage(responseData.message);
-
-                if (responseData.message === 'Your password was updated successfully') {
-                    reset();
-                }
-            },
-        });
-    };
+        notificationMessage,
+    } = useUpdatePassword();
 
     const navigate = useNavigate();
 
@@ -107,7 +86,7 @@ export const ChangePassword = () => {
 
     return (
         <div>
-            {isError && <Error message={error.message} />}
+            {isError && error && <Error message={error.message} />}
             {notificationMessage && <Notification message={notificationMessage} />}
             <form onSubmit={handleSubmit(updatePasswordSubmit)}>
                 {changePasswordFields.map((field) => (

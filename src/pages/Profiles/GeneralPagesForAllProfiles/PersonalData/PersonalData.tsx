@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import React from 'react';
 
-import { fetchUserDataById } from '../../../../api/FetchMethods/Profiles/PersonalData/personalData';
-import { useAppSelector } from '../../../../store/hooks';
 import { Loader } from '../../../../components/CustomComponents/Loader/Loader';
 import { Error } from '../../../../components/CustomComponents/Error/Error';
 import { PersonalDataEdit } from './PersonalDataEdit';
 import { PersonalDataInfo } from './PersonalDataInfo';
+import { useFetchPersonalData } from '../../hooks';
 
 export type UserData = {
     id: number;
@@ -19,35 +17,19 @@ export type UserData = {
 };
 
 export const PersonalData = () => {
-    const userId = useAppSelector((state) => state.auth.id);
-    const [userData, setUserData] = useState<UserData>();
-    const [isEditMode, setIsEditMode] = useState<boolean>(false);
+    const { userData, isEditMode, handleEditModeChange, isPending, isError, error } =
+        useFetchPersonalData();
 
-    const { isPending, isError, error, data } = useQuery({
-        queryKey: ['fetchUserData'],
-        queryFn: () => fetchUserDataById(userId),
-    });
-
-    useEffect(() => {
-        if (data) {
-            setUserData(data);
-        }
-    }, [userId, data]);
+    console.log(userData);
 
     if (isPending) {
         return <Loader />;
     }
 
-    const handleEditModeChange = () => {
-        setIsEditMode((prevState) => !prevState);
-    };
-
-    console.log(userData);
-
     return (
         <div>
             <h1>Personal Data</h1>
-            {isError && <Error message={error.message} />}
+            {isError && error && <Error message={error.message} />}
             {isEditMode && userData && <PersonalDataEdit user={userData} />}
             {!isEditMode && userData && (
                 <PersonalDataInfo user={userData} onClick={handleEditModeChange} />

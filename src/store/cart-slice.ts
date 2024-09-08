@@ -1,19 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { updateCart } from '../api/FetchMethods/Cart/cart';
+import { FetchedProduct } from '../pages/Catalog/CatalogMainContent/CatalogMainContent';
 
-export type CartItem = {
-    // duplicate with FetchedProduct in CatalogMainContent
-    id: number;
-    name: string;
-    price: number;
-    power: number;
-    pictureURL: string;
-    product_number: string;
-    brands: string;
-    description: string;
-    quantity: number;
+export type CartItem = FetchedProduct & {
     productType: string;
+    quantity: number;
 };
 
 export type CartItemPayload = Omit<CartItem, 'quantity'>;
@@ -41,7 +33,6 @@ export const cartSlice = createSlice({
             }
         },
         removeFromCart(state: CartState, action: { payload: number }) {
-            // get Id to remove
             const itemIndex = state.items.findIndex(
                 (item: CartItem) => item.id === action.payload,
             );

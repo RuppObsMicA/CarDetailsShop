@@ -10,6 +10,7 @@ import { fetchConfirmOrder } from '../../../api/FetchMethods/Cart/cart';
 import { Error } from '../../../components/CustomComponents/Error/Error';
 import { Notification } from '../../../components/CustomComponents/Notification/Notification';
 import { Loader } from '../../../components/CustomComponents/Loader/Loader';
+import { useSubmitOrder } from '../hooks';
 
 export type NewOrder = {
     clientId: number;
@@ -19,13 +20,13 @@ export type NewOrder = {
     productsIdsAndTypes: ProductsIdsAndTypes[];
 };
 
-type ProductsIdsAndTypes = {
+export type ProductsIdsAndTypes = {
     productId: number;
     productType: string;
     quantity: number;
 };
 
-type FormData = {
+export type FormData = {
     address: string;
 };
 
@@ -33,60 +34,15 @@ export const ConfirmOrder = () => {
     const {
         register,
         handleSubmit,
-        reset,
-        formState: { errors },
-    } = useForm<FormData>();
-
-    const { mutate, isPending, isError, error } = useMutation({
-        mutationFn: (data: NewOrder) => {
-            return fetchConfirmOrder(data);
-        },
-    });
-    const [notificationMessage, setNotificationMessage] = useState('');
-
-    const clientId = useAppSelector((state) => state.auth.id);
-    const clientName = useAppSelector((state) => state.auth.fullName);
-    const productsToOrder: CartItem[] = useAppSelector(
-        (state) => state.orderedProducts.items,
-    );
-
-    console.log(productsToOrder);
-    const totalPrice = productsToOrder.reduce(
-        (acc, product) => acc + product.price * product.quantity,
-        0,
-    );
-    const listOfProductsIdsAndTypes: ProductsIdsAndTypes[] = productsToOrder.reduce<
-        ProductsIdsAndTypes[]
-    >((acc, product) => {
-        return [
-            ...acc,
-            {
-                productId: product.id,
-                productType: product.productType,
-                quantity: product.quantity,
-            },
-        ];
-    }, []);
-    const submitOrder: SubmitHandler<FormData> = (data) => {
-        const newOrder: NewOrder = {
-            clientId: clientId,
-            clientName: clientName,
-            address: data.address,
-            price: totalPrice,
-            productsIdsAndTypes: listOfProductsIdsAndTypes,
-        };
-        mutate(newOrder, {
-            onSuccess: (responseData) => {
-                setNotificationMessage(responseData.message);
-                if (
-                    responseData.message ===
-                    'Your order was successfully receiver, our manager will reach out to you'
-                ) {
-                    reset();
-                }
-            },
-        });
-    };
+        errors,
+        isPending,
+        isError,
+        error,
+        notificationMessage,
+        submitOrder,
+        totalPrice,
+        productsToOrder,
+    } = useSubmitOrder();
 
     if (!productsToOrder.length) {
         return <h1>No chosen products</h1>;
@@ -104,7 +60,7 @@ export const ConfirmOrder = () => {
                 </div>
             ))}
             {notificationMessage && <Notification message={notificationMessage} />}
-            {isError && <Error message={error.message} />}
+            {isError && error && <Error message={error.message} />}
             <form onSubmit={handleSubmit(submitOrder)}>
                 <div>
                     <Input

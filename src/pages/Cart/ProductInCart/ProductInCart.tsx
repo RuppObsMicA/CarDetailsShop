@@ -1,41 +1,19 @@
 import React, { useState } from 'react';
 
-import { CartItem, updateDatabaseCart } from '../../../store/cart-slice';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { useDebounce } from '../hooks';
+import { CartItem } from '../../../store/cart-slice';
 import { orderedProducts } from '../../../store/orderedProducts-slice';
+import { useChangeQuantity } from '../hooks';
 
-type ProductInCartProps = {
+export type ProductInCartProps = {
     product: CartItem;
 };
 
 export const ProductInCart = ({ product }: ProductInCartProps) => {
-    const userId = useAppSelector((state) => state.auth.id);
-    const isAuth = useAppSelector((state) => state.auth.isAuth);
-
-    const { name, quantity, description, pictureURL, price } = product;
-    const dispatch = useAppDispatch();
     const [isChecked, setIsChecked] = useState(false);
-    const increaseCount = () => {
-        dispatch(
-            updateDatabaseCart({
-                cartItem: product,
-                userId,
-                isAuth,
-                isIncrease: true,
-            }),
-        );
-    };
 
-    const decreaseCount = () => {
-        dispatch(
-            updateDatabaseCart({
-                cartItem: product,
-                userId,
-                isAuth,
-                isIncrease: false,
-            }),
-        );
-    };
+    const { increaseCount, decreaseCount, dispatch } = useChangeQuantity({ product });
+    const { name, quantity, description, pictureURL, price } = product;
 
     const handleSelectProduct = () => {
         if (isChecked) {
@@ -65,9 +43,9 @@ export const ProductInCart = ({ product }: ProductInCartProps) => {
             </div>
 
             <div className="cart-container__counter">
-                <button onClick={increaseCount}>+</button>
+                <button onClick={useDebounce(decreaseCount, 300)}>-</button>
                 <div className="cart-container__count">{quantity}</div>
-                <button onClick={decreaseCount}>-</button>
+                <button onClick={useDebounce(increaseCount, 300)}>+</button>
             </div>
 
             <div className="cart-container__price-and-bonus">

@@ -13,13 +13,8 @@ export const CatalogSideBar = () => {
 
             <div className="catalog__products-titles">
                 {setOfProductTypes.map((productType) => (
-                    <Link
-                        key={productType.name}
-                        to={`/${productType.dataBaseTable}`}
-                    >
-                        <p className="catalog__product-element">
-                            {productType.name}
-                        </p>
+                    <Link key={productType.name} to={`/${productType.dataBaseTable}`}>
+                        <p className="catalog__product-element">{productType.name}</p>
                     </Link>
                 ))}
             </div>

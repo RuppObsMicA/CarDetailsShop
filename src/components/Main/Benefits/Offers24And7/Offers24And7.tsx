@@ -5,11 +5,7 @@ import offers24and7Image from '../../../../assets/images/Main/Benefits/offers24A
 export const Offers24And7 = () => {
     return (
         <div className="benefits__offers24and7">
-            <img
-                src={offers24and7Image}
-                alt="Offers 24/7"
-                className="benefits__image"
-            />
+            <img src={offers24and7Image} alt="Offers 24/7" className="benefits__image" />
             <div>Offers 24/7</div>
         </div>
     );

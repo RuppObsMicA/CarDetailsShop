@@ -8,11 +8,7 @@ export const Logo = () => {
     return (
         <Link to="/" className="header__logo">
             <div>
-                <img
-                    src={companyLogo}
-                    alt="Logo"
-                    className="header__logo-image"
-                />
+                <img src={companyLogo} alt="Logo" className="header__logo-image" />
             </div>
         </Link>
     );

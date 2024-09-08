@@ -7,11 +7,7 @@ export const Partners = () => {
     return (
         <div className="partners">
             <div>Our partners</div>
-            <img
-                src={partnersImage}
-                alt="Our partners"
-                className="partners__image"
-            />
+            <img src={partnersImage} alt="Our partners" className="partners__image" />
         </div>
     );
 };

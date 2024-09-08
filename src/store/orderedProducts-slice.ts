@@ -14,10 +14,7 @@ export const orderedProductsSlice = createSlice({
     name: 'orderedProducts',
     initialState,
     reducers: {
-        addProductToOrder(
-            state: OrderedProductsState,
-            action: PayloadAction<CartItem>,
-        ) {
+        addProductToOrder(state: OrderedProductsState, action: PayloadAction<CartItem>) {
             const itemIndex = state.items.findIndex(
                 (item: CartItem) => item.id === action.payload.id,
             );

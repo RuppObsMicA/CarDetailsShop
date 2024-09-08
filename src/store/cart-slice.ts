@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { fetchUpdateCartDatabase } from '../utils/FetchMethods/Cart/cart';
+import { updateCart } from '../api/FetchMethods/Cart/cart';
 
 export type CartItem = {
     // duplicate with FetchedProduct in CatalogMainContent
@@ -89,9 +89,9 @@ export const updateDatabaseCart = ({
 
         if (isAuth) {
             if (updatedCart.length) {
-                await fetchUpdateCartDatabase(cartData);
+                await updateCart(cartData);
             } else {
-                await fetchUpdateCartDatabase([{ userId, productId: cartItem.id }]);
+                await updateCart([{ userId, productId: cartItem.id }]);
             }
         } else {
             localStorage.setItem('cart', JSON.stringify(updatedCart));

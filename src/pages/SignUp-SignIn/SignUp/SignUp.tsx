@@ -16,7 +16,7 @@ export type SignUpInputs = {
     confirmPassword: string;
 };
 
-export type ResponseSignUp = {
+export type DefaultResponseMessage = {
     message: string;
 };
 
@@ -30,7 +30,7 @@ export const SignUp = () => {
         handleSubmit,
         watch,
         errors,
-        signUp,
+        signUpSubmit,
     } = useSignUp();
 
     if (isPending) {
@@ -41,7 +41,7 @@ export const SignUp = () => {
 
     return (
         <div className="signin-signup-form__form">
-            <form id="registration-form" onSubmit={handleSubmit(signUp)}>
+            <form id="registration-form" onSubmit={handleSubmit(signUpSubmit)}>
                 {notificationMessage && <Notification message={notificationMessage} />}
                 {isError && error && <Error message={error.message} />}
 

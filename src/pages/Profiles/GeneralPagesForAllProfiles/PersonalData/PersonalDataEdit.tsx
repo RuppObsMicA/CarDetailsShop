@@ -8,7 +8,7 @@ import { Button } from '../../../../components/CustomComponents/Button/Button';
 import { Input } from '../../../../components/CustomComponents/Input/Input';
 import { type SignUpInputs } from '../../../SignUp-SignIn/SignUp/SignUp';
 import { getChangePersonalDataFieldsSettings } from './PersonalDataFormFields';
-import { fetchUpdatePersonalData } from '../../../../utils/FetchMethods/Profiles/PersonalData/personalData';
+import { updatePersonalData } from '../../../../api/FetchMethods/Profiles/PersonalData/personalData';
 import { useAppSelector } from '../../../../store/hooks';
 import { Loader } from '../../../../components/CustomComponents/Loader/Loader';
 import { Error } from '../../../../components/CustomComponents/Error/Error';
@@ -44,7 +44,7 @@ export const PersonalDataEdit = ({ user }: PersonalDataEditProps) => {
 
     const { mutate, isPending, isError, error } = useMutation({
         mutationFn: (data: ChangePersonalDataForm) => {
-            return fetchUpdatePersonalData(data, userId);
+            return updatePersonalData(data, userId);
         },
     });
 

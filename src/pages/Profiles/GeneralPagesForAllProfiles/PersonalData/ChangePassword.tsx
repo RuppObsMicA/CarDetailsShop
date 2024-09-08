@@ -7,10 +7,10 @@ import { useNavigate } from 'react-router-dom';
 import { Input } from '../../../../components/CustomComponents/Input/Input';
 import { Button } from '../../../../components/CustomComponents/Button/Button';
 import { useAppSelector } from '../../../../store/hooks';
-import { fetchUpdatePassword } from '../../../../utils/FetchMethods/Profiles/PersonalData/personalData';
 import { Loader } from '../../../../components/CustomComponents/Loader/Loader';
 import { Error } from '../../../../components/CustomComponents/Error/Error';
 import { Notification } from '../../../../components/CustomComponents/Notification/Notification';
+import { updatePassword } from '../../../../api/FetchMethods/Profiles/PersonalData/personalData';
 
 function getChangePasswordFieldsSettings(watch: any) {
     return [
@@ -72,11 +72,11 @@ export const ChangePassword = () => {
 
     const { mutate, isPending, isError, error } = useMutation({
         mutationFn: (data: ChangePasswordForm) => {
-            return fetchUpdatePassword(data, userId);
+            return updatePassword(data, userId);
         },
     });
 
-    const updatePassword: SubmitHandler<ChangePasswordForm> = async (
+    const updatePasswordSubmit: SubmitHandler<ChangePasswordForm> = async (
         data: ChangePasswordForm,
     ) => {
         const salt = bcrypt.genSaltSync(10); // might be in a separate place
@@ -109,7 +109,7 @@ export const ChangePassword = () => {
         <div>
             {isError && <Error message={error.message} />}
             {notificationMessage && <Notification message={notificationMessage} />}
-            <form onSubmit={handleSubmit(updatePassword)}>
+            <form onSubmit={handleSubmit(updatePasswordSubmit)}>
                 {changePasswordFields.map((field) => (
                     <Input
                         key={field.label}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
-import { fetchOrdersByUserId } from '../../../../utils/FetchMethods/Profiles/Orders/orders';
+import { fetchOrdersByUserId } from '../../../../api/FetchMethods/Profiles/Orders/orders';
 import { Loader } from '../../../../components/CustomComponents/Loader/Loader';
 import { useAppSelector } from '../../../../store/hooks';
 import { Order } from './Order';

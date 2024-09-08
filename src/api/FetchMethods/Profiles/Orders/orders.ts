@@ -2,7 +2,7 @@ import {
     type FetchedOrder,
     type ResponseFetchOrderFailure,
 } from '../../../../pages/Profiles/GeneralPagesForAllProfiles/Order/OrdersByUser';
-import { fetchApi } from '../../../../api/fetchAPI';
+import { fetchApi } from '../../../fetchAPI';
 import { type ResponseFetchOrders } from '../../../../pages/Profiles/WorkerProfilePages/WorkerOrders';
 import { type ResponseUpdateStatus } from '../../../../pages/Profiles/WorkerProfilePages/ProcessOrder';
 
@@ -28,7 +28,7 @@ export async function fetchOrderByID(order_id: number): Promise<FetchedOrder> {
     });
 }
 
-export async function fetchUpdateStatus(
+export async function updateOrderStatus(
     data: { status: string },
     order_id: number,
 ): Promise<ResponseUpdateStatus> {

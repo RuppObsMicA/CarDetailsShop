@@ -3,10 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import bcrypt from 'bcryptjs';
 
-import {
-    fetchSignIn,
-    fetchSignUp,
-} from '../../utils/FetchMethods/Authorization/authorization';
+import { signIn, signUp } from '../../api/FetchMethods/Authorization/authorization';
 import { SignUpInputs } from './SignUp/SignUp';
 import { useAppDispatch } from '../../store/hooks';
 import { authActions } from '../../store/auth-slice';
@@ -24,11 +21,11 @@ export const useSignIn = () => {
 
     const { mutate, isPending, isError, error } = useMutation({
         mutationFn: (data: SignInInputs) => {
-            return fetchSignIn(data);
+            return signIn(data);
         },
     });
 
-    const signIn: SubmitHandler<SignInInputs> = async (data) => {
+    const signInSubmit: SubmitHandler<SignInInputs> = async (data) => {
         mutate(data, {
             onSuccess: (responseData) => {
                 if (responseData && !isResponseSignInFailure(responseData)) {
@@ -60,7 +57,7 @@ export const useSignIn = () => {
         handleSubmit,
         errors,
         notificationMessage,
-        signIn,
+        signInSubmit,
     };
 };
 
@@ -77,11 +74,11 @@ export const useSignUp = () => {
 
     const { mutate, isPending, isError, error } = useMutation({
         mutationFn: (data: SignUpInputs) => {
-            return fetchSignUp(data);
+            return signUp(data);
         },
     });
 
-    const signUp: SubmitHandler<SignUpInputs> = async (data: SignUpInputs) => {
+    const signUpSubmit: SubmitHandler<SignUpInputs> = async (data: SignUpInputs) => {
         const salt = bcrypt.genSaltSync(10); // might be in a separate place
         data.password = bcrypt.hashSync(data.password, salt);
 
@@ -107,6 +104,6 @@ export const useSignUp = () => {
         handleSubmit,
         watch,
         errors,
-        signUp,
+        signUpSubmit,
     };
 };

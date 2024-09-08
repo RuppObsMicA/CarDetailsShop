@@ -1,7 +1,7 @@
-import { getAuthToken } from '../../localStorage';
-import { fetchApi } from '../../../api/fetchAPI';
+import { getAuthToken } from '../../../utils/localStorage';
+import { fetchApi } from '../../fetchAPI';
 import {
-    type ResponseSignUp,
+    type DefaultResponseMessage,
     type SignUpInputs,
 } from '../../../pages/SignUp-SignIn/SignUp/SignUp';
 import {
@@ -24,7 +24,7 @@ type ResponseVerifyToken = {
     token?: string;
 };
 
-export async function fetchVerifyToken(): Promise<ResponseVerifyToken> {
+export async function verifyToken(): Promise<ResponseVerifyToken> {
     const token = getAuthToken();
 
     if (!token) {
@@ -35,9 +35,6 @@ export async function fetchVerifyToken(): Promise<ResponseVerifyToken> {
         endpoint: '/token-verify',
         method: 'POST',
         data: { token },
-        headers: {
-            'Content-Type': 'application/json',
-        },
     });
 
     if (resData.token) {
@@ -48,26 +45,20 @@ export async function fetchVerifyToken(): Promise<ResponseVerifyToken> {
     return resData;
 }
 
-export async function fetchSignUp(userData: SignUpInputs): Promise<ResponseSignUp> {
-    return fetchApi<SignUpInputs, ResponseSignUp>({
+export async function signUp(userData: SignUpInputs): Promise<DefaultResponseMessage> {
+    return fetchApi<SignUpInputs, DefaultResponseMessage>({
         endpoint: '/signup',
         method: 'POST',
         data: userData,
-        headers: {
-            'Content-Type': 'application/json',
-        },
     });
 }
 
-export async function fetchSignIn(
+export async function signIn(
     data: SignInInputs,
 ): Promise<ResponseSignInSuccess | ResponseSignInFailure> {
     return fetchApi<SignInInputs, ResponseSignInSuccess | ResponseSignInFailure>({
         endpoint: '/signin',
         method: 'POST',
         data,
-        headers: {
-            'Content-Type': 'application/json',
-        },
     });
 }

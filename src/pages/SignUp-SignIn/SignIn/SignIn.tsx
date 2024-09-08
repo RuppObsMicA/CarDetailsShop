@@ -38,7 +38,7 @@ export const SignIn = () => {
         handleSubmit,
         errors,
         notificationMessage,
-        signIn,
+        signInSubmit,
     } = useSignIn();
 
     if (isPending) {
@@ -47,7 +47,7 @@ export const SignIn = () => {
 
     return (
         <div className="signin-signup-form__form">
-            <form onSubmit={handleSubmit(signIn)} id="authorization-form">
+            <form onSubmit={handleSubmit(signInSubmit)} id="authorization-form">
                 {isError && error && <Error message={error.message} />}
                 {notificationMessage && <Notification message={notificationMessage} />}
 

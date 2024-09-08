@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 import { useAppDispatch } from '../../store/hooks';
 import { getAuthToken } from '../../utils/localStorage';
-import { fetchVerifyToken } from '../../utils/FetchMethods/Authorization/authorization';
+import { verifyToken } from '../../api/FetchMethods/Authorization/authorization';
 import { authActions } from '../../store/auth-slice';
 
 export const useVerifyToken = () => {
@@ -13,7 +13,7 @@ export const useVerifyToken = () => {
 
     const { isLoading, isError, error, data } = useQuery({
         queryKey: ['initialAuth'],
-        queryFn: fetchVerifyToken,
+        queryFn: verifyToken,
         enabled: token !== null,
     });
 

@@ -1,4 +1,4 @@
-import { fetchApi } from '../../../api/fetchAPI';
+import { fetchApi } from '../../fetchAPI';
 import { type CartItem } from '../../../store/cart-slice';
 import { type NewOrder } from '../../../pages/Cart/ConfirmOrder/ConfirmOrder';
 
@@ -18,7 +18,7 @@ type ResponseUpdateCartDatabase = {
     message: string;
 };
 
-export async function fetchUpdateCartDatabase(
+export async function updateCart(
     data: FetchUpdateCartDatabaseInputs[],
 ): Promise<ResponseUpdateCartDatabase> {
     return fetchApi<FetchUpdateCartDatabaseInputs[], ResponseUpdateCartDatabase>({

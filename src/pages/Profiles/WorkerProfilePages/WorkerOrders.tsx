@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
-import { fetchAllOrders } from '../../../utils/FetchMethods/Profiles/Orders/orders';
+import { fetchAllOrders } from '../../../api/FetchMethods/Profiles/Orders/orders';
 import { Loader } from '../../../components/CustomComponents/Loader/Loader';
 import { Error } from '../../../components/CustomComponents/Error/Error';
 import { Notification } from '../../../components/CustomComponents/Notification/Notification';

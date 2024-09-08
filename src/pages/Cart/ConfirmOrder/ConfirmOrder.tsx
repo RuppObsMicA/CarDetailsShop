@@ -6,7 +6,7 @@ import { useAppSelector } from '../../../store/hooks';
 import { Button } from '../../../components/CustomComponents/Button/Button';
 import { Input } from '../../../components/CustomComponents/Input/Input';
 import { type CartItem } from '../../../store/cart-slice';
-import { fetchConfirmOrder } from '../../../utils/FetchMethods/Cart/cart';
+import { fetchConfirmOrder } from '../../../api/FetchMethods/Cart/cart';
 import { Error } from '../../../components/CustomComponents/Error/Error';
 import { Notification } from '../../../components/CustomComponents/Notification/Notification';
 import { Loader } from '../../../components/CustomComponents/Loader/Loader';

@@ -10,11 +10,11 @@ import { useVerifyToken } from './hooks';
 export const ProtectedRoutes = () => {
     const isAuth = useAppSelector((state) => state.auth.isAuth);
 
+    const { isLoading, isError, error } = useVerifyToken();
+
     if (!isAuth) {
         return <SignUpSignIn />;
     }
-
-    const { isLoading, isError, error } = useVerifyToken();
 
     if (isLoading) {
         return <Loader />;

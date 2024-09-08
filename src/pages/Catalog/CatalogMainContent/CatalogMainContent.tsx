@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
-import { fetchChosenProductType } from '../../../utils/FetchMethods/Products/products';
+import { fetchProductType } from '../../../api/FetchMethods/Products/products';
 import { Loader } from '../../../components/CustomComponents/Loader/Loader';
 import { Error } from '../../../components/CustomComponents/Error/Error';
 import { Product } from './Product/Product';
@@ -41,7 +41,7 @@ export const CatalogMainContent = () => {
 
     const { isPending, isError, error, data } = useQuery({
         queryKey: ['fetchProducts', product_type],
-        queryFn: () => fetchChosenProductType(product_type ?? ''),
+        queryFn: () => fetchProductType(product_type ?? ''),
         enabled: !!product_type,
     });
 

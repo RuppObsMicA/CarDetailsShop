@@ -1,7 +1,7 @@
 import { type FetchedProduct } from '../../../pages/Catalog/CatalogMainContent/CatalogMainContent';
-import { fetchApi } from '../../../api/fetchAPI';
+import { fetchApi } from '../../fetchAPI';
 
-export async function fetchChosenProductType(product: string): Promise<FetchedProduct[]> {
+export async function fetchProductType(product: string): Promise<FetchedProduct[]> {
     return fetchApi<undefined, FetchedProduct[]>({
         endpoint: `/product?product=${product}`,
         method: 'GET',

@@ -6,8 +6,8 @@ import { useQuery } from '@tanstack/react-query';
 import { Loader } from '../../../components/CustomComponents/Loader/Loader';
 import {
     fetchOrderByID,
-    fetchUpdateStatus,
-} from '../../../utils/FetchMethods/Profiles/Orders/orders';
+    updateOrderStatus,
+} from '../../../api/FetchMethods/Profiles/Orders/orders';
 import { Error } from '../../../components/CustomComponents/Error/Error';
 import { Notification } from '../../../components/CustomComponents/Notification/Notification';
 import { OrderFullInfo } from '../GeneralPagesForAllProfiles/Order/OrderFullInfo';
@@ -52,7 +52,7 @@ export const ProcessOrder = () => {
         mutate,
     } = useMutation({
         mutationFn: (data: { status: string }) => {
-            return fetchUpdateStatus(data, Number(params.id));
+            return updateOrderStatus(data, Number(params.id));
         },
     });
 

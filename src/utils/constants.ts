@@ -45,3 +45,12 @@ export const imagesForOrderStatus: { [key: string]: string } = {
     approved: orderApproved,
     delivered: orderDelivered,
 };
+
+export const setOfProductTypesAndAttributes = [
+    { productType: 'batteries', productAttribute: 'power' },
+    { productType: 'tires_and_wheels', productAttribute: 'size' },
+    { productType: 'engine_oil', productAttribute: 'viscosity' },
+    { productType: 'auto_chemical_goods', productAttribute: 'volume' },
+    { productType: 'tools', productAttribute: 'length' },
+    { productType: 'body_parts', productAttribute: 'size' },
+];

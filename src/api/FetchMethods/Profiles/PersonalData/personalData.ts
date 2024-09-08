@@ -1,5 +1,5 @@
 import { type UserData } from '../../../../pages/Profiles/GeneralPagesForAllProfiles/PersonalData/PersonalData';
-import { fetchApi } from '../../../../api/fetchAPI';
+import { fetchApi } from '../../../fetchAPI';
 import {
     type ChangePersonalDataForm,
     type ResponseChangePersonalData,
@@ -16,7 +16,7 @@ export async function fetchUserDataById(userId: number): Promise<UserData> {
     });
 }
 
-export async function fetchUpdatePersonalData(
+export async function updatePersonalData(
     data: ChangePersonalDataForm,
     user_id: number,
 ): Promise<ResponseChangePersonalData> {
@@ -27,7 +27,7 @@ export async function fetchUpdatePersonalData(
     });
 }
 
-export async function fetchUpdatePassword(
+export async function updatePassword(
     data: ChangePasswordForm,
     user_id: number,
 ): Promise<ResponseChangePassword> {

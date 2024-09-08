@@ -1,3 +1,5 @@
+import * as chance from 'chance';
+
 export function formatDate(rawDate: string) {
     const isoDateString = rawDate;
     const date = new Date(isoDateString);
@@ -23,3 +25,11 @@ export function formatDate(rawDate: string) {
 
     return `${day} ${month} ${year}`;
 }
+
+export const generateRandomProductNumber = () => {
+    const getNumber = () => {
+        return String(chance.integer({ min: 0, max: 999 }));
+    };
+
+    return `${getNumber()}-${getNumber()}-${getNumber()}`;
+};

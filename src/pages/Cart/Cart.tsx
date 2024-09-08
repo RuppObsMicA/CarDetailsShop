@@ -8,7 +8,7 @@ import { ProductInCart } from './ProductInCart/ProductInCart';
 import { Loader } from '../../components/CustomComponents/Loader/Loader';
 import { Error } from '../../components/CustomComponents/Error/Error';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { fetchCartData } from '../../utils/FetchMethods/Cart/cart';
+import { fetchCartData } from '../../api/FetchMethods/Cart/cart';
 import { cartActions, type CartItem } from '../../store/cart-slice';
 import { getCart } from '../../utils/localStorage';
 import { Button } from '../../components/CustomComponents/Button/Button';
@@ -22,7 +22,7 @@ export const Cart = () => {
     const dispatch = useAppDispatch();
     const [localCartItems, setLocalCartItems] = useState<CartItem[]>([]);
 
-    const { isPending, isError, error, data } = useQuery({
+    const { isLoading, isError, error, data } = useQuery({
         // Fix it to send a request only when a user is authorized
         queryKey: ['fetchCartData'],
         queryFn: () => fetchCartData(userId.toString()),
@@ -55,7 +55,7 @@ export const Cart = () => {
             ) : (
                 <h2>Please authorize if you want to see your full profile</h2>
             )}
-            {isPending ? (
+            {isLoading ? (
                 <Loader />
             ) : (
                 <div className="cart-container__content">

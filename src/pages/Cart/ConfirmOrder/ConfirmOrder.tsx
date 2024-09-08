@@ -40,7 +40,7 @@ export const ConfirmOrder = () => {
     } = useSubmitOrder();
 
     if (!productsToOrder.length) {
-        return <h1>No chosen products</h1>;
+        return <Notification message={'No chosen products'} />;
     }
     if (isPending) {
         return <Loader />;
@@ -74,6 +74,7 @@ export const ConfirmOrder = () => {
                     <Button text="Confirm" />
                 </div>
             </form>
+            <div>{totalPrice} $</div>
         </div>
     );
 };

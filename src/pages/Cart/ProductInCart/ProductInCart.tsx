@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
-import { useDebounce } from '../hooks';
+import { useChangeQuantity } from '../hooks';
 import { CartItem } from '../../../store/cart-slice';
 import { orderedProducts } from '../../../store/orderedProducts-slice';
-import { useChangeQuantity } from '../hooks';
 
 export type ProductInCartProps = {
     product: CartItem;
@@ -43,9 +42,9 @@ export const ProductInCart = ({ product }: ProductInCartProps) => {
             </div>
 
             <div className="cart-container__counter">
-                <button onClick={useDebounce(decreaseCount, 300)}>-</button>
+                <button onClick={decreaseCount}>-</button>
                 <div className="cart-container__count">{quantity}</div>
-                <button onClick={useDebounce(increaseCount, 300)}>+</button>
+                <button onClick={increaseCount}>+</button>
             </div>
 
             <div className="cart-container__price-and-bonus">

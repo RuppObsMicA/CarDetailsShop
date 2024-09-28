@@ -1,7 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { updateCart } from '../api/FetchMethods/Cart/cart';
 import { FetchedProduct } from '../pages/Catalog/CatalogMainContent/CatalogMainContent';
+import { useAppSelector } from './hooks';
+import { store } from './store';
 
 export type CartItem = FetchedProduct & {
     productType: string;
@@ -23,8 +25,10 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart(state: CartState, action: PayloadAction<CartItemPayload>) {
+            const cartItem = action.payload;
+
             const itemIndex = state.items.findIndex(
-                (item: CartItem) => item.id === action.payload.id,
+                (item: CartItem) => item.id === cartItem.id,
             );
             if (itemIndex >= 0) {
                 state.items[itemIndex].quantity++;
@@ -47,47 +51,44 @@ export const cartSlice = createSlice({
             state.items = action.payload;
         },
     },
+    // extraReducers: (builder) => {
+    //     builder.addCase(updCart.fulfilled, (state, action) => {});
+    // },
 });
 
 export type UpdateCartInputs = {
     cartItem: CartItemPayload;
     userId: number;
     isAuth: boolean;
-    isIncrease: boolean;
 };
 
-export const updateDatabaseCart = ({
-    cartItem,
-    userId,
-    isAuth,
-    isIncrease,
-}: UpdateCartInputs) => {
-    return async (dispatch: any, getState: () => { cart: CartState }) => {
-        // fix the any type
-        if (isIncrease) {
-            dispatch(cartActions.addToCart(cartItem));
-        } else {
-            dispatch(cartActions.removeFromCart(cartItem.id));
-        }
+// export const updCart = createAsyncThunk('cart-slice/updateCart', async function () {
+//     await updateCart();
+// });
 
-        const updatedCart = getState().cart.items || [];
-        const cartData = updatedCart.map((product: CartItem) => ({
-            userId,
-            productId: product.id,
-            productType: product.productType,
-            quantity: product.quantity,
-        }));
+// export const updateDatabaseCart = createAsyncThunk(
+//     'cart-slice',
+//     ({ cartItem, userId, isAuth, isIncrease }: UpdateCartInputs) => {},
+// );
 
-        if (isAuth) {
-            if (updatedCart.length) {
-                await updateCart(cartData);
-            } else {
-                await updateCart([{ userId, productId: cartItem.id }]);
-            }
+export const updateDatabaseCart = ({ cartItem, userId, isAuth }: UpdateCartInputs) => {
+    const updatedCart = store.getState().cart.items || [];
+    const cartData = updatedCart.map((product: CartItem) => ({
+        userId,
+        productId: product.id,
+        productType: product.productType,
+        quantity: product.quantity,
+    }));
+
+    if (isAuth) {
+        if (updatedCart.length) {
+            updateCart(cartData);
         } else {
-            localStorage.setItem('cart', JSON.stringify(updatedCart));
+            updateCart([{ userId, productId: cartItem.id }]);
         }
-    };
+    } else {
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+    }
 };
 
 export const cartActions = cartSlice.actions;

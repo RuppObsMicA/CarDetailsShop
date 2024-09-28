@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { cartActions, CartItem, updateDatabaseCart } from '../../store/cart-slice';
@@ -9,7 +8,7 @@ import { fetchCartData, fetchConfirmOrder } from '../../api/FetchMethods/Cart/ca
 import { orderedProducts } from '../../store/orderedProducts-slice';
 import { getCart } from '../../utils/localStorage';
 import { ProductInCartProps } from './ProductInCart/ProductInCart';
-import { NewOrder, ProductsIdsAndTypes, FormData } from './ConfirmOrder/ConfirmOrder';
+import { FormData, NewOrder, ProductsIdsAndTypes } from './ConfirmOrder/ConfirmOrder';
 
 export const useFetchCartData = () => {
     const isAuth = useAppSelector((state) => state.auth.isAuth);
@@ -53,26 +52,19 @@ export const useChangeQuantity = ({ product }: ProductInCartProps) => {
     const isAuth = useAppSelector((state) => state.auth.isAuth);
     const dispatch = useAppDispatch();
 
+    const throttledUpdateDatabaseCart = useThrottle(
+        (cartItem: CartItem) => updateDatabaseCart({ cartItem, userId, isAuth }),
+        2000,
+    );
+
     const increaseCount = () => {
-        dispatch(
-            updateDatabaseCart({
-                cartItem: product,
-                userId,
-                isAuth,
-                isIncrease: true,
-            }),
-        );
+        dispatch(cartActions.addToCart(product));
+        throttledUpdateDatabaseCart(product);
     };
 
     const decreaseCount = () => {
-        dispatch(
-            updateDatabaseCart({
-                cartItem: product,
-                userId,
-                isAuth,
-                isIncrease: false,
-            }),
-        );
+        dispatch(cartActions.removeFromCart(product.id));
+        throttledUpdateDatabaseCart(product);
     };
 
     return { decreaseCount, increaseCount, dispatch };
@@ -155,14 +147,36 @@ export const useSubmitOrder = () => {
     };
 };
 
-export const useDebounce = (fn: () => void, delay: number) => {
-    let timer: NodeJS.Timeout | null;
-    return () => {
-        if (timer) {
-            clearTimeout(timer);
+export const useThrottle = (fn: any, delay: number) => {
+    const lastExecuted = useRef(0);
+    const lastResult = useRef<any>(undefined);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    const throttledFn = function (...args: any) {
+        const now = Date.now();
+        if (now - lastExecuted.current >= delay) {
+            lastExecuted.current = now;
+            lastResult.current = fn(...args);
+
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+                timeoutRef.current = null;
+            }
+        } else {
+            if (!timeoutRef.current) {
+                timeoutRef.current = setTimeout(
+                    () => {
+                        lastExecuted.current = Date.now();
+                        console.log('start fn (throttled)');
+                        lastResult.current = fn(...args);
+                        timeoutRef.current = null; // Reset the timeout ref
+                    },
+                    delay - (now - lastExecuted.current),
+                );
+            }
         }
-        timer = setTimeout(() => {
-            fn();
-        }, delay);
+        return lastResult.current;
     };
+
+    return throttledFn;
 };

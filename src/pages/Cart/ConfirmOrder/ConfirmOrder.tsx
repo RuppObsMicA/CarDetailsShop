@@ -1,12 +1,7 @@
-import React, { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
+import React from 'react';
 
-import { useAppSelector } from '../../../store/hooks';
 import { Button } from '../../../components/CustomComponents/Button/Button';
 import { Input } from '../../../components/CustomComponents/Input/Input';
-import { type CartItem } from '../../../store/cart-slice';
-import { fetchConfirmOrder } from '../../../api/FetchMethods/Cart/cart';
 import { Error } from '../../../components/CustomComponents/Error/Error';
 import { Notification } from '../../../components/CustomComponents/Notification/Notification';
 import { Loader } from '../../../components/CustomComponents/Loader/Loader';
@@ -45,7 +40,7 @@ export const ConfirmOrder = () => {
     } = useSubmitOrder();
 
     if (!productsToOrder.length) {
-        return <h1>No chosen products</h1>;
+        return <Notification message={'No chosen products'} />;
     }
     if (isPending) {
         return <Loader />;
@@ -79,6 +74,7 @@ export const ConfirmOrder = () => {
                     <Button text="Confirm" />
                 </div>
             </form>
+            <div>{totalPrice} $</div>
         </div>
     );
 };

@@ -76,6 +76,12 @@ export const useFetchSingleProduct = () => {
     const handleAddToCart = () => {
         if (data && 'id' in data) {
             dispatch(cartActions.addToCart({ ...data, productType: product_type! }));
+
+            updateDatabaseCart({
+                cartItem: { ...data, productType: product_type! },
+                userId,
+                isAuth,
+            });
         }
     };
 

@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { type UserData } from './PersonalData';
@@ -8,13 +6,12 @@ import { Button } from '../../../../components/CustomComponents/Button/Button';
 import { Input } from '../../../../components/CustomComponents/Input/Input';
 import { type SignUpInputs } from '../../../SignUp-SignIn/SignUp/SignUp';
 import { getChangePersonalDataFieldsSettings } from './PersonalDataFormFields';
-import { updatePersonalData } from '../../../../api/FetchMethods/Profiles/PersonalData/personalData';
-import { useAppSelector } from '../../../../store/hooks';
 import { Loader } from '../../../../components/CustomComponents/Loader/Loader';
 import { Error } from '../../../../components/CustomComponents/Error/Error';
 import { Notification } from '../../../../components/CustomComponents/Notification/Notification';
+import { useUpdatePersonalData } from '../../hooks';
 
-type PersonalDataEditProps = {
+export type PersonalDataEditProps = {
     user: UserData;
 };
 
@@ -25,43 +22,20 @@ export type ResponseChangePersonalData = {
 };
 
 export const PersonalDataEdit = ({ user }: PersonalDataEditProps) => {
+    const updatePersonalDataFields = getChangePersonalDataFieldsSettings();
+
     const {
+        isPending,
+        isError,
+        error,
         register,
         handleSubmit,
-        reset,
-        formState: { errors },
-    } = useForm<ChangePersonalDataForm>();
-
-    const userId = useAppSelector((state) => state.auth.id);
-    const [notificationMessage, setNotificationMessage] = useState('');
-    const [formData, setFormData] = useState<ChangePersonalDataForm>({
-        username: user.username,
-        fullname: user.fullname,
-        email: user.email,
-        phone: user.phone,
-        password: '',
-    });
-
-    const { mutate, isPending, isError, error } = useMutation({
-        mutationFn: (data: ChangePersonalDataForm) => {
-            return updatePersonalData(data, userId);
-        },
-    });
-
-    const updateData: SubmitHandler<ChangePersonalDataForm> = async (
-        data: ChangePersonalDataForm,
-    ) => {
-        mutate(data, {
-            onSuccess: (responseData) => {
-                setNotificationMessage(responseData.message);
-                if (responseData.message === 'Your profile was updated successfully') {
-                    reset();
-                }
-            },
-        });
-    };
-
-    const updatePersonalDataFields = getChangePersonalDataFieldsSettings();
+        errors,
+        notificationMessage,
+        formData,
+        setFormData,
+        updateData,
+    } = useUpdatePersonalData({ user });
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -77,7 +51,7 @@ export const PersonalDataEdit = ({ user }: PersonalDataEditProps) => {
 
     return (
         <div>
-            {isError && <Error message={error.message} />}
+            {isError && error && <Error message={error.message} />}
             {notificationMessage && <Notification message={notificationMessage} />}
             <form onSubmit={handleSubmit(updateData)}>
                 {updatePersonalDataFields.map((field) => (
